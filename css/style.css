@@ -1,244 +1,245 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
 
 /*-----------------NAVBAR SECTION------------------------*/
 
 #navbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 90%;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
 }
 
 #navbar .logo {
-    padding: 2em;
+  padding: 2em;
 }
 
 #navbar .logo img {
-    width: 70%;
+  width: 70%;
 }
 
 #navbar .button {
-    display: flex;
-    align-items: center;
-    padding: 2em;
+  display: flex;
+  align-items: center;
+  padding: 2em;
 }
 
 #login-btn {
-    cursor: pointer;
-    background-color: #FFB356;
-    font-size: 28px;
-    padding: 8px 39px 8px;
-    border: 1px solid #FFB356;
-    color: #ffff;
-    border-radius: 5px;
-    transition: 0.4s;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  cursor: pointer;
+  background-color: #ffb356;
+  font-size: 28px;
+  padding: 8px 39px 8px;
+  border: 1px solid #ffb356;
+  color: #ffff;
+  border-radius: 5px;
+  transition: 0.4s;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 #hero .hero-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 
-    margin: 0 auto;
-    margin-top: 4em;
-    margin-bottom: 5em;
-    width: 90%;
-    height: 498px;
-    left: 95px;
-    top: 135px;
-    background: #05934A;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 4px -2px rgba(0, 0, 0, 0.05);
-    border-radius: 20px;
+  margin: 0 auto;
+  margin-top: 4em;
+  margin-bottom: 5em;
+  width: 90%;
+  height: 498px;
+  left: 95px;
+  top: 135px;
+  background: #05934a;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    0px 2px 4px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
 }
 
 #hero .hero-box .text-section {
-    margin-top: 5em;
+  margin-top: 5em;
 }
 
-#hero .hero-box .text-section .upper-text h4{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 150%;
-    /* or 60px */
-    color: #FFFFFF;
+#hero .hero-box .text-section .upper-text h4 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 150%;
+  /* or 60px */
+  color: #ffffff;
 }
 
 #hero .hero-box .text-section .lower-text h4 {
-    margin-top: 1em;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 28px;
-    line-height: 150%;
-    /* or 30px */
-    color: #FFFFFF;
+  margin-top: 1em;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 150%;
+  /* or 30px */
+  color: #ffffff;
 }
 
 #hero .hero-box .image-section {
-    display: flex;
+  display: flex;
 }
 
 #hero .hero-box .image-section img {
-    width: 460px;
-    align-self: flex-end;
+  width: 460px;
+  align-self: flex-end;
 }
 
 /*-----------------PRAYING INFO SECTION------------------------*/
 
 #praying-info {
-    width: 90%;
-    margin: 0 auto;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 4px -2px rgba(0, 0, 0, 0.05);
-    border-radius: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 5em 1em 5em;
+  width: 90%;
+  margin: 0 auto;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    0px 2px 4px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 5em 1em 5em;
 }
 
 #praying-info .text-section {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
 }
 
 #praying-info .text-section h3 {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 70px;
-    line-height: 150%;
-    /* identical to box height, or 60px */
-    color: #000000;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 70px;
+  line-height: 150%;
+  /* identical to box height, or 60px */
+  color: #000000;
 }
 
 #praying-info .text-section h4 {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 150%;
-    /* or 30px */
-    color: #000000;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 150%;
+  /* or 30px */
+  color: #000000;
 }
 
-#praying-info .table-praying img {      
-    width: 391px;
-    height: 326px;
-    left: 780px;
-    top: 136px;
+#praying-info .table-praying img {
+  width: 391px;
+  height: 326px;
+  left: 780px;
+  top: 136px;
 }
 
 /*-----------------MORE INFO SECTION------------------------*/
 
 #more-info {
-    margin-top: 4em;
+  margin-top: 4em;
 }
 
 #more-info .head-info h1 {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 70px;
-    line-height: 150%;
-    /* identical to box height, or 60px */
-    color: #000000;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 70px;
+  line-height: 150%;
+  /* identical to box height, or 60px */
+  color: #000000;
 }
 
 /*-----------------CARD SECTION------------------------*/
 
-
 #more-info .card-section {
-    margin-top: 2em;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 #more-info .card-section .card {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    margin-bottom: 3em;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-bottom: 3em;
 }
 
 #more-info .card-section .card .image-card img {
-    width: 500px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
+  width: 500px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
 }
 
 #more-info .card-section .card .title-card h2 {
-    font-weight: bold;
-    font-size: 32px;
-    width: 90%;
-    margin: auto;
-    margin-top: 0.4em;
+  font-weight: bold;
+  font-size: 32px;
+  width: 90%;
+  margin: auto;
+  margin-top: 0.4em;
 }
 
 #more-info .card-section .card .text-card p {
-    color: #6B7280;
-    font-size: 20px;
-    margin-left: 1.3em;
-    margin-top: 0.8em;
-    width: 400px;
-    word-wrap: break-word;
+  color: #6b7280;
+  font-size: 20px;
+  margin-left: 1.3em;
+  margin-top: 0.8em;
+  width: 400px;
+  word-wrap: break-word;
 }
 
 #more-info .card-section .card .button-card a button {
-    width: 150px;
-    margin-left: 1em;
-    margin-top: 0.8em;
-    background-color: #FFB356;
-    font-size: 18px;
-    color: #FFFFFF;
-    border: 1px solid #FFB356;
-    border-radius: 5px;
-    padding: 8px;
-    margin-bottom: 1em;
+  width: 150px;
+  margin-left: 1em;
+  margin-top: 0.8em;
+  background-color: #ffb356;
+  font-size: 18px;
+  color: #ffffff;
+  border: 1px solid #ffb356;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 1em;
 }
 
 /*-----------------FOOTER SECTION------------------------*/
 
 #footer {
-    background-color:#F9FAFB ;
-    padding: 5px;
+  background-color: #f9fafb;
+  padding: 5px;
 }
 
 #footer .title {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #footer .title h1 {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 #footer .content .text-content {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
 }
 
 #footer .break-line {
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
 }
 
 #footer .additional-info {
-    margin-top: 1em;
-    display: flex;
-    justify-content: center;
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
 }
 
 #dashboard-box {
-    
 }
