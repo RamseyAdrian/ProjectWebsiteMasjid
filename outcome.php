@@ -13,7 +13,7 @@ if ($_SESSION['status_login'] != true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pemasukan - Website Masjid Ar-Rahmah</title>
+    <title>Pengeluaran - Website Masjid Ar-Rahmah</title>
     <!--------------------Flowbite-------------------------------------------->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
@@ -38,7 +38,7 @@ if ($_SESSION['status_login'] != true) {
                                 <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                             </svg>
                         </button>
-                        <a href="{{ url('/') }}" class="flex ml-2 md:mr-24">
+                        <a href="" class="flex ml-2 md:mr-24">
                             <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
                             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Masjid Ar - Rahmah</span>
                         </a>
@@ -85,8 +85,8 @@ if ($_SESSION['status_login'] != true) {
                         </a>
                     </li>
                     <li>
-                        <a href="income.php" class="flex items-center p-2 text-green-700 rounded-lg bg-gray-100 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-5 h-5 text-green-500 dark:text-white group-hover:text-green-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                        <a href="income.php" class="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-gray-500 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
                                 <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
                                 <path d="M14.067 0H7v5a2 2 0 0 1-2 2H0v4h7.414l-1.06-1.061a1 1 0 1 1 1.414-1.414l2.768 2.768a1 1 0 0 1 0 1.414l-2.768 2.768a1 1 0 0 1-1.414-1.414L7.414 13H0v5a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.933-2Z" />
                             </svg>
@@ -94,7 +94,7 @@ if ($_SESSION['status_login'] != true) {
                         </a>
                     </li>
                     <li>
-                        <a href="outcome.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <a href="outcome.php" class="flex items-center p-2 text-gray-900 rounded-lg bg-gray-100 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="w-5 h-5 text-gray-500 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M11.074 4 8.442.408A.95.95 0 0 0 7.014.254L2.926 4h8.148ZM9 13v-1a4 4 0 0 1 4-4h6V6a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h17a1 1 0 0 0 1-1v-2h-6a4 4 0 0 1-4-4Z" />
                                 <path d="M19 10h-6a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1Zm-4.5 3.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM12.62 4h2.78L12.539.41a1.086 1.086 0 1 0-1.7 1.352L12.62 4Z" />
@@ -143,7 +143,7 @@ if ($_SESSION['status_login'] != true) {
         <div class="p-4 sm:ml-64">
             <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
                 <div class="grid grid-cols-3 gap-4 mb-4">
-                    <h2 class="text-4xl font-bold dark:text-white">Pemasukkan</h2>
+                    <h2 class="text-4xl font-bold dark:text-white">Pengeluaran</h2>
                 </div>
                 <div class="flex items-center justify-center h-48 mb-4 ">
                     <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
@@ -161,10 +161,11 @@ if ($_SESSION['status_login'] != true) {
                         <svg class="w-3 h-3 mr-1 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
                         </svg>
-                        Tambah Pemasukkan
+                        Tambah Pengeluaran
                     </button>
 
                 </div>
+
                 <!-----------------MODAL CRUD-------------------------------------------------------------->
                 <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative w-full max-w-md max-h-full">
@@ -177,8 +178,12 @@ if ($_SESSION['status_login'] != true) {
                                 <span class="sr-only">Close modal</span>
                             </button>
                             <div class="px-6 py-6 lg:px-8">
-                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Tambah Pemasukkan</h3>
+                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Tambah Pengeluaran</h3>
                                 <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+                                    <div>
+                                        <label for="detail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Transaksi</label>
+                                        <input type="detail" name="detail" id="detail" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan keterangan transaksi" required>
+                                    </div>
                                     <div>
                                         <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
                                         <div class="relative max-w-sm">
@@ -194,32 +199,21 @@ if ($_SESSION['status_login'] != true) {
                                         <label for="total" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total</label>
                                         <input type="text" name="total" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Jumlah Dana" required>
                                     </div>
-                                    <div>
-                                        <label for="dana" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sumber Dana</label>
-                                        <select id="dana" name="dana" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected>Pilih Dana</option>
-                                            <option value="Infaq">Infaq</option>
-                                            <option value="Sodaqqoh">Sodaqqoh</option>
-                                            <option value="Zakat">Zakat</option>
-                                        </select>
-                                    </div>
                                     <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 </form>
                                 <?php
                                 if (isset($_POST['submit'])) {
                                     //Menampung data dari form 
                                     $id = rand();
-                                    // $tanggal = $_POST['tanggal'];
-                                    $format_tanggal = date_create_from_format('m/d/Y', $_POST['tanggal']);
-                                    $tanggal = $format_tanggal->format('Y-m-d');
+                                    $tanggal = $_POST['tanggal'];
                                     $total = $_POST['total'];
-                                    $sumber = $_POST['dana'];
+                                    $detail = $_POST['detail'];
 
-                                    $input_data = mysqli_query($conn, "INSERT INTO income VALUE (
+                                    $input_data = mysqli_query($conn, "INSERT INTO outcome VALUE (
                                         '" . $id . "', 
                                         '" . $tanggal . "',
                                         '" . $total . "',
-                                        '" . $sumber . "' 
+                                        '" . $detail . "' 
                                         )");
                                 }
                                 ?>
@@ -239,7 +233,7 @@ if ($_SESSION['status_login'] != true) {
                                         Tanggal
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Sumber Dana
+                                        Keterangan
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Total
@@ -251,7 +245,7 @@ if ($_SESSION['status_login'] != true) {
                             </thead>
                             <tbody>
                                 <?php
-                                $query_data = mysqli_query($conn, "SELECT * FROM income ORDER BY date DESC LIMIT 10");
+                                $query_data = mysqli_query($conn, "SELECT * FROM outcome ORDER BY date LIMIT 10");
                                 if (mysqli_num_rows($query_data) > 0) {
                                     while ($fetch_data = mysqli_fetch_array($query_data)) {
                                 ?>
@@ -260,14 +254,13 @@ if ($_SESSION['status_login'] != true) {
                                                 <?php echo $fetch_data['date'] ?>
                                             </th>
                                             <td class="px-6 py-4">
-                                                <?php echo $fetch_data['source'] ?>
+                                                <?php echo $fetch_data['detail'] ?>
                                             </td>
                                             <td class="px-6 py-4">
                                                 <?php echo $fetch_data['total'] ?>
                                             </td>
-                                            <td class="px-2 py-4 text-left">
+                                            <td class="px-6 py-4 text-left">
                                                 <a href="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline"> Remove</a>
                                             </td>
                                         </tr>
                                 <?php

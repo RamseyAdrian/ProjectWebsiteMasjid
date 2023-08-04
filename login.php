@@ -24,45 +24,47 @@
     <div class="login-container">
         <h2>Form Login</h2>
         <form method="POST">
-          <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <div class="text-input" style="margin-top: 0.8em ;">
-                <input type="checkbox" value="isRememberMe">Remember Me
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
             </div>
-          </div>
-          <button type="submit" name="login" value="login">Login</button>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <div class="text-input" style="margin-top: 0.8em ;">
+                    <input type="checkbox" value="isRememberMe">Remember Me
+                </div>
+            </div>
+            <button type="submit" name="login" value="login">Login</button>
         </form>
 
-        <?php 
-        if (isset($_POST['login'])){
+        <?php
+        if (isset($_POST['login'])) {
             session_start();
             include 'db.php';
 
             $user = mysqli_real_escape_string($conn, $_POST['username']);
             $pass = mysqli_real_escape_string($conn, $_POST['password']);
 
-            $cek_admin = mysqli_query($conn, "SELECT * FROM admin WHERE username = '".$user."' AND password = '".$pass."' ");
-            $cek_master = mysqli_query($conn, "SELECT * FROM masteradmin WHERE username = '".$user."' AND password = '".$pass."' ");
+            $cek_admin = mysqli_query($conn, "SELECT * FROM admin WHERE username = '" . $user . "' AND password = '" . $pass . "' ");
+            $cek_master = mysqli_query($conn, "SELECT * FROM masteradmin WHERE username = '" . $user . "' AND password = '" . $pass . "' ");
 
-            if(mysqli_num_rows($cek_admin) > 0) {
+            if (mysqli_num_rows($cek_admin) > 0) {
                 $fetch_admin = mysqli_fetch_object($cek_admin);
                 $_SESSION['status_login'] = true;
                 $_SESSION['role_login'] = 'admin';
                 $_SESSION['fetch_data'] = $fetch_admin;
                 $_SESSION['id'] = $fetch_admin->id;
+                $_SESSION['name'] = $fetch_admin->name;
                 echo '<script>window.location="dashboard.php"</script>';
                 unset($_SESSION[$pass]);
-            }else if (mysqli_num_rows($cek_master) > 0) {
+            } else if (mysqli_num_rows($cek_master) > 0) {
                 $fetch_master = mysqli_fetch_object($cek_master);
                 $_SESSION['status_login'] = true;
                 $_SESSION['role_login'] = 'masteradmin';
                 $_SESSION['fetch_data'] = $fetch_master;
                 $_SESSION['id'] = $fetch_master->id;
+                $_SESSION['name'] = $fetch_master->name;
                 echo '<script>window.location="dashboard.php"</script>';
                 unset($_SESSION[$pass]);
             } else {
@@ -70,7 +72,7 @@
             }
         }
         ?>
-      </div>
+    </div>
 </body>
 
 </html>
