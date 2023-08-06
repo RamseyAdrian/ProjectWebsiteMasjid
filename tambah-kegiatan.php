@@ -331,7 +331,7 @@ if ($_SESSION['status_login'] != true) {
                     $newfile = 'dokumen' . $namakegiatan . time() . '.' . $type2;
 
                     //rename file data gambar
-                    $newpic = 'gambar   ' . $namakegiatan . time() . '.' . $type4;
+                    $newpic = 'gambar' . $namakegiatan . time() . '.' . $type4;
 
                     //menampung data format file yang diizinkan
                     $tipe_gambar_diizinkan = array('jpg', 'jpeg', 'png', 'gif');
@@ -342,7 +342,7 @@ if ($_SESSION['status_login'] != true) {
                         //Memasukkan data gambar dan dokumen kedalam folder yang ditentukan
                         move_uploaded_file($tmp_pic, './kegiatan/' . $newpic);
                         move_uploaded_file($tmp_file, './dokumen/' . $newfile);
-                        $input_data = mysqli_query($conn, "INSERT INTO activity VALUE (
+                        $input_data = mysqli_query($conn, "INSERT INTO informasikegiatan VALUE (
                                         '" . $id . "',
                                         '" . $namakegiatan . "',
                                         '" . $tanggal . "',

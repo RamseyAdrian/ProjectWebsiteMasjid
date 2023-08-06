@@ -21,7 +21,7 @@ $tanggal = $format_tanggal->format('m/d/Y');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ubah Pemasukkan - Website Masjid Ar-Rahmah</title>
+    <title>Ubah Pengeluaran - Website Masjid Ar-Rahmah</title>
     <!--------------------Flowbite-------------------------------------------->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
@@ -262,7 +262,7 @@ $tanggal = $format_tanggal->format('m/d/Y');
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="grid grid-cols-3 gap-4 mb-4">
-                <h2 class="text-4xl font-bold dark:text-white">Ubah Pemasukkan</h2>
+                <h2 class="text-4xl font-bold dark:text-white">Ubah Pengeluaran</h2>
             </div>
             <br><br>
             <div class=" h-48 mb-4 rounded">

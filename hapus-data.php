@@ -10,3 +10,8 @@ if (isset($_GET['idpeng'])) {
     $hapus_pengeluaran = mysqli_query($conn, "DELETE FROM pengeluaran WHERE id = '" . $_GET['idpeng'] . "' ");
     echo '<script>window.location="pengeluaran.php"</script>';
 }
+
+if (isset($_GET['idkeg'])) {
+    $hapus_kegiatan = mysqli_query($conn, "DELETE FROM informasikegiatan WHERE id = '" . $_GET['idkeg'] . "' ");
+    echo '<script>window.location="kegiatan.php"</script>';
+}
