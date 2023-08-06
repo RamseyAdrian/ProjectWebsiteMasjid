@@ -15,3 +15,8 @@ if (isset($_GET['idkeg'])) {
     $hapus_kegiatan = mysqli_query($conn, "DELETE FROM informasikegiatan WHERE id = '" . $_GET['idkeg'] . "' ");
     echo '<script>window.location="kegiatan.php"</script>';
 }
+
+if (isset($_GET['idas'])) {
+    $hapus_aset = mysqli_query($conn, "DELETE FROM asset WHERE id = '" . $_GET['idas'] . "' ");
+    echo '<script>window.location="asset.php"</script>';
+}

@@ -5,6 +5,12 @@ include 'db.php';
 if ($_SESSION['status_login'] != true) {
     echo '<script>window.location="login.php"</script>';
 }
+
+$query_data = mysqli_query($conn, "SELECT * FROM asset WHERE id = '" . $_GET['id'] . "' ");
+if (mysqli_num_rows($query_data) == 0) {
+    echo '<script>window.location = "asset.php"</script>';
+}
+$fetch_data = mysqli_fetch_array($query_data);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +19,7 @@ if ($_SESSION['status_login'] != true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aset Masjid - Website Masjid Ar-Rahmah</title>
+    <title>Ubah Aset - Website Masjid Ar-Rahmah</title>
     <!--------------------Flowbite-------------------------------------------->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
@@ -21,13 +27,7 @@ if ($_SESSION['status_login'] != true) {
     <!--------------------- Sweet Alert CDN ----------------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
-    <style>
-        .top-btn {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-    </style>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -93,7 +93,7 @@ if ($_SESSION['status_login'] != true) {
                     </li>
                     <li>
                         <a href="pemasukkan.php" class="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-5 h-5 text-gray-500 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                            <svg class="w-5 h-5 text-gray-500 dark:text-white group-hover:text-green-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
                                 <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
                                 <path d="M14.067 0H7v5a2 2 0 0 1-2 2H0v4h7.414l-1.06-1.061a1 1 0 1 1 1.414-1.414l2.768 2.768a1 1 0 0 1 0 1.414l-2.768 2.768a1 1 0 0 1-1.414-1.414L7.414 13H0v5a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.933-2Z" />
                             </svg>
@@ -259,165 +259,76 @@ if ($_SESSION['status_login'] != true) {
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="grid grid-cols-3 gap-4 mb-4">
-                <h2 class="text-4xl font-bold dark:text-white">Aset Masjid</h2>
-            </div>
-            <div class="top-btn h-48">
-                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
-                    focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 
-                    text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 
-                    dark:focus:ring-blue-800">
-                    <svg class="w-3 h-3 mr-1 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                    </svg>
-                    Tambah Aset
-                </button>
-
-            </div>
-
-            <!-----------------MODAL CRUD-------------------------------------------------------------->
-            <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative w-full max-w-md max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                        <div class="px-6 py-6 lg:px-8">
-                            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Tambah Aset</h3>
-                            <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
-                                <div>
-                                    <label for="assetname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Aset</label>
-                                    <input name="assetname" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Nama Aset" required>
-                                </div>
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
-                                    <input name="item_count" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contoh : 10" required>
-                                </div>
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
-                                    <input name="unit" id="unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contoh : Box/Lusin/Buah" required>
-                                </div>
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kondisi</label>
-                                    <select name="item_condition" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option selected>Pilih Kondisi Aset</option>
-                                        <option value="Baik">Baik</option>
-                                        <option value="Rusak">Rusak</option>
-                                        <option value="Sedang diperbaiki">Sedang diperbaiki</option>
-                                    </select>
-                                </div>
-                                <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            </form>
-                            <?php
-                            if (isset($_POST['submit'])) {
-                                //Menampung data dari form 
-                                $id = rand();
-                                $namaaset = $_POST['assetname'];
-                                $jumlahaset = $_POST['item_count'];
-                                $satuan = $_POST['unit'];
-                                $kondisi = $_POST['item_condition'];
-
-                                $input_data = mysqli_query($conn, "INSERT INTO asset VALUE (
-                                        '" . $id . "', 
-                                        '" . $namaaset . "',
-                                        '" . $jumlahaset . "',
-                                        '" . $satuan . "' ,
-                                        '" . $kondisi . "'
-                                        )");
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!------------------------------TABLE---------------------------------------->
-            <div class="h-48 mb-4 ">
-
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style="width: 1200px;">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Nama Aset
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Jumlah
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Satuan
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Kondisi
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $query_data = mysqli_query($conn, "SELECT * FROM asset ORDER BY name LIMIT 10");
-                            if (mysqli_num_rows($query_data) > 0) {
-                                while ($fetch_data = mysqli_fetch_array($query_data)) {
-                            ?>
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <?php echo $fetch_data['name'] ?>
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <?php echo $fetch_data['total_item'] ?>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <?php echo $fetch_data['unit'] ?>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <?php
-                                            if ($fetch_data['item_condition'] == 'Baik') {
-                                            ?>
-                                                <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                                    <?php echo $fetch_data['item_condition'] ?>
-                                                </span>
-                                            <?php
-                                            } else if ($fetch_data['item_condition'] == 'Rusak') {
-                                            ?>
-                                                <span class="inline-flex items-center bg-red-200 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                                    <?php echo $fetch_data['item_condition'] ?>
-                                                </span>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <span class="inline-flex items-center bg-orange-100 text-orange-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                                    <?php echo $fetch_data['item_condition'] ?>
-                                                </span>
-                                            <?php
-                                            }
-                                            ?>
-                                        </td>
-                                        <td class="px-6 py-4 text-left">
-                                            <a href="update-asset.php?id=<?php echo $fetch_data['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a><span> || </span>
-                                            <a href="hapus-data.php?idas=<?php echo $fetch_data['id'] ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
-                                        </td>
-                                    </tr>
-                            <?php
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-
+                <h2 class="text-4xl font-bold dark:text-white">Ubah Aset</h2>
             </div>
             <br><br>
+            <div class=" h-48 mb-4 rounded">
+                <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+                    <div>
+                        <label for="namaaset" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Aset</label>
+                        <input name="namaaset" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Nama Aset" value="<?php echo $fetch_data['name'] ?>" required>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
+                        <input name="jumlah" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 
+                                         block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                         dark:placeholder-gray-400 dark:text-white
+                                         dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Jumlah Aset" value="<?php echo $fetch_data['total_item'] ?>" required>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
+                        <input name="satuan" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 
+                                         block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                         dark:placeholder-gray-400 dark:text-white
+                                         dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contoh : Box/Lusin/Buah" value="<?php echo $fetch_data['unit'] ?>" required>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kondisi</label>
+                        <select name="item_condition" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="<?php echo $fetch_data['item_condition'] ?>"><?php echo $fetch_data['item_condition'] ?></option>
+                            <option value="Baik">Baik</option>
+                            <option value="Rusak">Rusak</option>
+                            <option value="Sedang diperbaiki">Sedang diperbaiki</option>
+                        </select>
+                    </div>
+                    <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+
+                    <br><br>
+                </form>
+                <?php
+                if (isset($_POST['submit'])) {
+                    $namaaset = $_POST['namaaset'];
+                    $jumlah = $_POST['jumlah'];
+                    $satuan = $_POST['satuan'];
+                    $kondisi = $_POST['item_condition'];
+
+                    $update_aset = mysqli_query($conn, "UPDATE asset SET 
+                    name = '" . $namaaset . "',
+                    total_item = '" . $jumlah . "',
+                    unit = '" . $satuan . "',
+                    item_condition = '" . $kondisi . "'
+                    WHERE id = '" . $_GET['id'] . "'
+                ");
+
+                    if ($update_aset) {
+                        echo '<script>Swal.fire({
+                            title: "Berhasil Ubah Aset",
+                            text: "Klik OK Untuk Lanjut",
+                            icon: "success"
+                          }).then(function() {
+                            window.location = "asset.php";
+                          });
+                        </script>';
+                    } else {
+                        echo 'gagal' . mysqli_error($conn);
+                    }
+                }
+                ?>
+            </div>
         </div>
     </div>
 </body>
