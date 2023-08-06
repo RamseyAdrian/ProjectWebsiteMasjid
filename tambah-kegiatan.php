@@ -13,7 +13,7 @@ if ($_SESSION['status_login'] != true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aset Masjid - Website Masjid Ar-Rahmah</title>
+    <title>Informasi Kegiatan - Website Masjid Ar-Rahmah</title>
     <!--------------------Flowbite-------------------------------------------->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
@@ -21,6 +21,7 @@ if ($_SESSION['status_login'] != true) {
     <!--------------------- Sweet Alert CDN ----------------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -112,7 +113,7 @@ if ($_SESSION['status_login'] != true) {
                             </a>
                         </li>
                         <li>
-                            <a href="asset.php" class="flex items-center p-2 text-gray-900 rounded-lg bg-gray-100 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <a href="asset.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <svg class="w-5 h-5 text-gray-500 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
                                     <path d="M19 0H1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1ZM2 6v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6H2Zm11 3a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0h2a1 1 0 0 1 2 0v1Z" />
                                 </svg>
@@ -120,7 +121,7 @@ if ($_SESSION['status_login'] != true) {
                             </a>
                         </li>
                         <li>
-                            <a href="kegiatan.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <a href="kegiatan.php" class="flex items-center p-2 text-gray-900 rounded-lg bg-gray-100 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <svg class="w-5 h-5 text-gray-500 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 21 21">
                                     <path d="m5.4 2.736 3.429 3.429A5.046 5.046 0 0 1 10.134 6c.356.01.71.06 1.056.147l3.41-3.412c.136-.133.287-.248.45-.344A9.889 9.889 0 0 0 10.269 1c-1.87-.041-3.713.44-5.322 1.392a2.3 2.3 0 0 1 .454.344Zm11.45 1.54-.126-.127a.5.5 0 0 0-.706 0l-2.932 2.932c.029.023.049.054.078.077.236.194.454.41.65.645.034.038.078.067.11.107l2.927-2.927a.5.5 0 0 0 0-.707Zm-2.931 9.81c-.024.03-.057.052-.081.082a4.963 4.963 0 0 1-.633.639c-.041.036-.072.083-.115.117l2.927 2.927a.5.5 0 0 0 .707 0l.127-.127a.5.5 0 0 0 0-.707l-2.932-2.931Zm-1.442-4.763a3.036 3.036 0 0 0-1.383-1.1l-.012-.007a2.955 2.955 0 0 0-1-.213H10a2.964 2.964 0 0 0-2.122.893c-.285.29-.509.634-.657 1.013l-.01.016a2.96 2.96 0 0 0-.21 1 2.99 2.99 0 0 0 .489 1.716c.009.014.022.026.032.04a3.04 3.04 0 0 0 1.384 1.1l.012.007c.318.129.657.2 1 .213.392.015.784-.05 1.15-.192.012-.005.02-.013.033-.018a3.011 3.011 0 0 0 1.676-1.7v-.007a2.89 2.89 0 0 0 0-2.207 2.868 2.868 0 0 0-.27-.515c-.007-.012-.02-.025-.03-.039Zm6.137-3.373a2.53 2.53 0 0 1-.35.447L14.84 9.823c.112.428.166.869.16 1.311-.01.356-.06.709-.147 1.054l3.413 3.412c.132.134.249.283.347.444A9.88 9.88 0 0 0 20 11.269a9.912 9.912 0 0 0-1.386-5.319ZM14.6 19.264l-3.421-3.421c-.385.1-.781.152-1.18.157h-.134c-.356-.01-.71-.06-1.056-.147l-3.41 3.412a2.503 2.503 0 0 1-.443.347A9.884 9.884 0 0 0 9.732 21H10a9.9 9.9 0 0 0 5.044-1.388 2.519 2.519 0 0 1-.444-.348ZM1.735 15.6l3.426-3.426a4.608 4.608 0 0 1-.013-2.367L1.735 6.4a2.507 2.507 0 0 1-.35-.447 9.889 9.889 0 0 0 0 10.1c.1-.164.217-.316.35-.453Zm5.101-.758a4.957 4.957 0 0 1-.651-.645c-.033-.038-.077-.067-.11-.107L3.15 17.017a.5.5 0 0 0 0 .707l.127.127a.5.5 0 0 0 .706 0l2.932-2.933c-.03-.018-.05-.053-.078-.076ZM6.08 7.914c.03-.037.07-.063.1-.1.183-.22.384-.423.6-.609.047-.04.082-.092.129-.13L3.983 4.149a.5.5 0 0 0-.707 0l-.127.127a.5.5 0 0 0 0 .707L6.08 7.914Z" />
                                 </svg>
@@ -252,165 +253,155 @@ if ($_SESSION['status_login'] != true) {
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="grid grid-cols-3 gap-4 mb-4">
-                <h2 class="text-4xl font-bold dark:text-white">Aset Masjid</h2>
-            </div>
-            <div class="flex items-center justify-center h-48 mb-4 ">
-                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
-                    focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 
-                    text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 
-                    dark:focus:ring-blue-800">
-                    <svg class="w-3 h-3 mr-1 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                    </svg>
-                    Tambah Aset
-                </button>
-
-            </div>
-
-            <!-----------------MODAL CRUD-------------------------------------------------------------->
-            <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative w-full max-w-md max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                        <div class="px-6 py-6 lg:px-8">
-                            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Tambah Aset</h3>
-                            <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
-                                <div>
-                                    <label for="assetname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Aset</label>
-                                    <input name="assetname" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Nama Aset" required>
-                                </div>
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
-                                    <input name="item_count" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contoh : 10" required>
-                                </div>
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
-                                    <input name="unit" id="unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contoh : Box/Lusin/Buah" required>
-                                </div>
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kondisi</label>
-                                    <select name="item_condition" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option selected>Pilih Kondisi Aset</option>
-                                        <option value="Baik">Baik</option>
-                                        <option value="Rusak">Rusak</option>
-                                        <option value="Sedang diperbaiki">Sedang diperbaiki</option>
-                                    </select>
-                                </div>
-                                <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            </form>
-                            <?php
-                            if (isset($_POST['submit'])) {
-                                //Menampung data dari form 
-                                $id = rand();
-                                $namaaset = $_POST['assetname'];
-                                $jumlahaset = $_POST['item_count'];
-                                $satuan = $_POST['unit'];
-                                $kondisi = $_POST['item_condition'];
-
-                                $input_data = mysqli_query($conn, "INSERT INTO asset VALUE (
-                                        '" . $id . "', 
-                                        '" . $namaaset . "',
-                                        '" . $jumlahaset . "',
-                                        '" . $satuan . "' ,
-                                        '" . $kondisi . "'
-                                        )");
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!------------------------------TABLE---------------------------------------->
-            <div class="flex items-center justify-center h-48 mb-4 ">
-
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style="width: 1000px;">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Nama Aset
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Jumlah
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Satuan
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Kondisi
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $query_data = mysqli_query($conn, "SELECT * FROM asset ORDER BY name LIMIT 10");
-                            if (mysqli_num_rows($query_data) > 0) {
-                                while ($fetch_data = mysqli_fetch_array($query_data)) {
-                            ?>
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <?php echo $fetch_data['name'] ?>
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <?php echo $fetch_data['total_item'] ?>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <?php echo $fetch_data['unit'] ?>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <?php
-                                            if ($fetch_data['item_condition'] == 'Baik') {
-                                            ?>
-                                                <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                                    <?php echo $fetch_data['item_condition'] ?>
-                                                </span>
-                                            <?php
-                                            } else if ($fetch_data['item_condition'] == 'Rusak') {
-                                            ?>
-                                                <span class="inline-flex items-center bg-red-200 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                                    <?php echo $fetch_data['item_condition'] ?>
-                                                </span>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <span class="inline-flex items-center bg-orange-100 text-orange-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                                    <?php echo $fetch_data['item_condition'] ?>
-                                                </span>
-                                            <?php
-                                            }
-                                            ?>
-                                        </td>
-                                        <td class="px-6 py-4 text-left">
-                                            <a href="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        </td>
-                                    </tr>
-                            <?php
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-
+                <h2 class="text-4xl font-bold dark:text-white">Tambah Kegiatan</h2>
             </div>
             <br><br>
+            <div class=" h-48 mb-4 rounded">
+                <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+                    <div>
+                        <label for="activity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kegiatan</label>
+                        <input name="activity_name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Nama Kegiatan" required>
+                    </div>
+                    <div>
+                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
+                        <div class="relative max-w-sm">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                </svg>
+                            </div>
+                            <input datepicker datepicker-autohide type="text" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penanggung Jawab</label>
+                        <input name="organizer" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personel Penanggung Jawab Kegiatan" required>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Gambar</label>
+                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
+                                     cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
+                                     dark:border-gray-600 dark:placeholder-gray-400" name="addpic" id="file_input" type="file" required>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload File</label>
+                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
+                                     cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
+                                     dark:border-gray-600 dark:placeholder-gray-400" name="addfile" id="file_input" type="file" required>
+                    </div>
+                    <div>
+                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
+                        <textarea id="message" name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
+                                    rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
+                                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tuliskan info tambahan"></textarea>
+                    </div>
+                    <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 
+                    <br><br>
+                </form>
+                <?php
+                if (isset($_POST['submit'])) {
+                    //Menampung data dari form 
+                    $id = rand();
+                    $namakegiatan = $_POST['activity_name'];
+                    //mengubah format tanggal supaya bisa diterima MySQL
+                    $format_tanggal = date_create_from_format('m/d/Y', $_POST['date']);
+                    $tanggal = $format_tanggal->format('Y-m-d');
+                    $pjawab = $_POST['organizer'];
+                    $deskripsi = $_POST['message'];
+
+                    //Menampung file yang diupload
+                    $filename = $_FILES['addfile']['name'];
+                    $tmp_file = $_FILES['addfile']['tmp_name'];
+
+                    $picname = $_FILES['addpic']['name'];
+                    $tmp_pic = $_FILES['addpic']['tmp_name'];
+
+                    $type1 = explode('.', $filename);
+                    $type2 = $type1[1];
+
+                    $type3 = explode('.', $picname);
+                    $type4 = $type3[1];
+
+                    //rename file dokumen
+                    $newfile = 'dokumen' . $namakegiatan . time() . '.' . $type2;
+
+                    //rename file data gambar
+                    $newpic = 'gambar   ' . $namakegiatan . time() . '.' . $type4;
+
+                    //menampung data format file yang diizinkan
+                    $tipe_gambar_diizinkan = array('jpg', 'jpeg', 'png', 'gif');
+
+                    if (!in_array($type4, $tipe_gambar_diizinkan)) {
+                        echo '<script>alert("Format file tidak diizinkan")</script>';
+                    } else {
+                        //Memasukkan data gambar dan dokumen kedalam folder yang ditentukan
+                        move_uploaded_file($tmp_pic, './kegiatan/' . $newpic);
+                        move_uploaded_file($tmp_file, './dokumen/' . $newfile);
+                        $input_data = mysqli_query($conn, "INSERT INTO activity VALUE (
+                                        '" . $id . "',
+                                        '" . $namakegiatan . "',
+                                        '" . $tanggal . "',
+                                        '" . $newpic . "',
+                                        '" . $newfile . "',
+                                        '" . $deskripsi . "',
+                                        '" . $pjawab . "'
+                                    )");
+                        if ($input_data) {
+                            echo '<script>Swal.fire({
+                                            title: "Berhasil Tambah Kegiatan",
+                                            text: "Klik OK Untuk Lanjut",
+                                            icon: "success"
+                                          }).then(function() {
+                                            window.location = "kegiatan.php";
+                                          });
+                                        </script>';
+                        }
+                    }
+                }
+                ?>
+            </div>
+            <!-- <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+                <p class="text-2xl text-gray-400 dark:text-gray-500">
+                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                    </svg>
+                </p>
+            </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
                     <p class="text-2xl text-gray-400 dark:text-gray-500">
@@ -440,7 +431,7 @@ if ($_SESSION['status_login'] != true) {
                         </svg>
                     </p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>
