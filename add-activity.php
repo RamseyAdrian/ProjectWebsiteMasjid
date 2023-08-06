@@ -21,6 +21,7 @@ if ($_SESSION['status_login'] != true) {
     <!--------------------- Sweet Alert CDN ----------------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -252,82 +253,185 @@ if ($_SESSION['status_login'] != true) {
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="grid grid-cols-3 gap-4 mb-4">
-                <h2 class="text-4xl font-bold dark:text-white">Informasi Kegiatan</h2>
-            </div>
-            <div class="flex items-center justify-center h-48 mb-4 ">
-                <a href="add-activity.php">
-                    <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
-                    focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 
-                    text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 
-                    dark:focus:ring-blue-800">
-                        <svg class="w-3 h-3 mr-1 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                        Tambah Kegiatan
-                    </button>
-                </a>
-            </div>
-
-            <!------------------------------TABLE---------------------------------------->
-            <div class="flex items-center justify-center h-48 mb-4 ">
-
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style="width: 1000px;">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Nama Kegiatan
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Tanggal
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Penanggung Jawab
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Dokumen Laporan
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $query_data = mysqli_query($conn, "SELECT * FROM activity ORDER BY tanggal LIMIT 5");
-                            if (mysqli_num_rows($query_data) > 0) {
-                                while ($fetch_data = mysqli_fetch_array($query_data)) {
-                            ?>
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <?php echo $fetch_data['namakegiatan'] ?>
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <?php echo $fetch_data['tanggal'] ?>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <?php echo $fetch_data['penanggungjawab'] ?>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <?php echo $fetch_data['dokumen'] ?>
-                                        </td>
-                                        <td class="px-6 py-4 text-left">
-                                            <button data-modal-target="#update-modal<?php echo $fetch_data['id'] ?>" data-modal-toggle="update-modal" type="button">Edit</button>
-                                            <!-- <a data-modal-target="#update-modal<?php echo $fetch_data['id'] ?>" data-modal-toggle="update-modal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
-                                            <?php include 'update-activity.php'; ?>
-                                        </td>
-                                    </tr>
-
-                            <?php
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-
+                <h2 class="text-4xl font-bold dark:text-white">Tambah Kegiatan</h2>
             </div>
             <br><br>
+            <div class=" h-48 mb-4 rounded">
+                <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+                    <div>
+                        <label for="activity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kegiatan</label>
+                        <input name="activity_name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Nama Kegiatan" required>
+                    </div>
+                    <div>
+                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
+                        <div class="relative max-w-sm">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                </svg>
+                            </div>
+                            <input datepicker datepicker-autohide type="text" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penanggung Jawab</label>
+                        <input name="organizer" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personel Penanggung Jawab Kegiatan" required>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Gambar</label>
+                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
+                                     cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
+                                     dark:border-gray-600 dark:placeholder-gray-400" name="addpic" id="file_input" type="file" required>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload File</label>
+                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
+                                     cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
+                                     dark:border-gray-600 dark:placeholder-gray-400" name="addfile" id="file_input" type="file" required>
+                    </div>
+                    <div>
+                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
+                        <textarea id="message" name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
+                                    rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
+                                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tuliskan info tambahan"></textarea>
+                    </div>
+                    <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+
+                    <br><br>
+                </form>
+                <?php
+                if (isset($_POST['submit'])) {
+                    //Menampung data dari form 
+                    $id = rand();
+                    $namakegiatan = $_POST['activity_name'];
+                    //mengubah format tanggal supaya bisa diterima MySQL
+                    $format_tanggal = date_create_from_format('m/d/Y', $_POST['date']);
+                    $tanggal = $format_tanggal->format('Y-m-d');
+                    $pjawab = $_POST['organizer'];
+                    $deskripsi = $_POST['message'];
+
+                    //Menampung file yang diupload
+                    $filename = $_FILES['addfile']['name'];
+                    $tmp_file = $_FILES['addfile']['tmp_name'];
+
+                    $picname = $_FILES['addpic']['name'];
+                    $tmp_pic = $_FILES['addpic']['tmp_name'];
+
+                    $type1 = explode('.', $filename);
+                    $type2 = $type1[1];
+
+                    $type3 = explode('.', $picname);
+                    $type4 = $type3[1];
+
+                    //rename file dokumen
+                    $newfile = 'dokumen' . $namakegiatan . time() . '.' . $type2;
+
+                    //rename file data gambar
+                    $newpic = 'gambar   ' . $namakegiatan . time() . '.' . $type4;
+
+                    //menampung data format file yang diizinkan
+                    $tipe_gambar_diizinkan = array('jpg', 'jpeg', 'png', 'gif');
+
+                    if (!in_array($type4, $tipe_gambar_diizinkan)) {
+                        echo '<script>alert("Format file tidak diizinkan")</script>';
+                    } else {
+                        //Memasukkan data gambar dan dokumen kedalam folder yang ditentukan
+                        move_uploaded_file($tmp_pic, './kegiatan/' . $newpic);
+                        move_uploaded_file($tmp_file, './dokumen/' . $newfile);
+                        $input_data = mysqli_query($conn, "INSERT INTO activity VALUE (
+                                        '" . $id . "',
+                                        '" . $namakegiatan . "',
+                                        '" . $tanggal . "',
+                                        '" . $newpic . "',
+                                        '" . $newfile . "',
+                                        '" . $deskripsi . "',
+                                        '" . $pjawab . "'
+                                    )");
+                        if ($input_data) {
+                            echo '<script>Swal.fire({
+                                            title: "Berhasil Tambah Kegiatan",
+                                            text: "Klik OK Untuk Lanjut",
+                                            icon: "success"
+                                          }).then(function() {
+                                            window.location = "activity.php";
+                                          });
+                                        </script>';
+                        }
+                    }
+                }
+                ?>
+            </div>
+            <!-- <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+                <p class="text-2xl text-gray-400 dark:text-gray-500">
+                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                    </svg>
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                        </svg>
+                    </p>
+                </div>
+            </div> -->
         </div>
     </div>
 </body>
