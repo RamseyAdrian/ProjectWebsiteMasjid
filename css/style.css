@@ -177,6 +177,8 @@
   margin-top: 2em;
   display: flex;
   flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
