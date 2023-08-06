@@ -21,6 +21,13 @@ if ($_SESSION['status_login'] != true) {
     <!--------------------- Sweet Alert CDN ----------------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    <style>
+        .top-btn {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -254,7 +261,7 @@ if ($_SESSION['status_login'] != true) {
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <h2 class="text-4xl font-bold dark:text-white">Pengeluaran</h2>
             </div>
-            <div class="flex items-center justify-center h-48 mb-4 ">
+            <div class="h-48 top-btn ">
                 <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
                     focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
                     inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
@@ -337,10 +344,10 @@ if ($_SESSION['status_login'] != true) {
             </div>
 
             <!------------------------------TABLE---------------------------------------->
-            <div class="flex items-center justify-center h-48 mb-4 ">
+            <div class="h-48 mb-4 ">
 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style="width: 1000px;">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style="width: 1200px;">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
@@ -374,7 +381,8 @@ if ($_SESSION['status_login'] != true) {
                                             <?php echo $fetch_data['jumlah'] ?>
                                         </td>
                                         <td class="px-6 py-4 text-left">
-                                            <a href="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                            <a href="update-pengeluaran.php?id=<?php echo $fetch_data['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a><span> || </span>
+                                            <a href="hapus-data.php?idpeng=<?php echo $fetch_data['id'] ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
                                         </td>
                                     </tr>
                             <?php
