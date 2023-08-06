@@ -307,7 +307,7 @@ if ($_SESSION['status_login'] != true) {
                 if (isset($_POST['submit'])) {
                     //Menampung data dari form 
                     $id = rand();
-                    $namakegiatan = $_POST['activity_name'];
+                    $namakegiatan = addslashes($_POST['activity_name']);
                     //mengubah format tanggal supaya bisa diterima MySQL
                     $format_tanggal = date_create_from_format('m/d/Y', $_POST['date']);
                     $tanggal = $format_tanggal->format('Y-m-d');
@@ -328,10 +328,10 @@ if ($_SESSION['status_login'] != true) {
                     $type4 = $type3[1];
 
                     //rename file dokumen
-                    $newfile = 'dokumen' . $namakegiatan . time() . '.' . $type2;
+                    $newfile = 'dokumen' . $id . '.' . $type2;
 
                     //rename file data gambar
-                    $newpic = 'gambar' . $namakegiatan . time() . '.' . $type4;
+                    $newpic = 'gambar' . $id . '.' . $type4;
 
                     //menampung data format file yang diizinkan
                     $tipe_gambar_diizinkan = array('jpg', 'jpeg', 'png', 'gif');

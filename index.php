@@ -1,3 +1,9 @@
+<?php
+include 'db.php';
+
+$query_kegiatan = mysqli_query($conn, "SELECT * FROM informasikegiatan ORDER BY tanggal LIMIT 3");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,12 +37,8 @@
                         Selamat datang website di DKM Masjid Ar Rohmah<br> Perumas BCK Blok D, Cilegon.</h4>
                 </div>
                 <div class="lower-text">
-                    <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed<br> do eiusmod tempor incididunt ut
-                        labore et dolore magna<br> aliqua.</h4>
+                    <h4>Website ini merupakan media informasi Pengurus DKM <br> dan Jamaah Masjid Ar-Rohmah, Blok D Perumnas Bumi Cibeber <br> Kencana,Cilegon, Banten.</h4>
                 </div>
-            </div>
-            <div class="image-section">
-                <img src="img/masjid.png" alt="">
             </div>
         </div>
     </div>
@@ -64,51 +66,32 @@
             </div>
         </center>
         <div class="see-more-link">
-
+            <a href="lihat-kegiatan.php">Lihat Lebih</a>
+            <img src="img/panahkanan.svg" alt="">
         </div>
         <div class="card-section">
-            <div class="card">
-                <div class="image-card">
-                    <img src="img/card-pengajian.png" alt="">
-                </div>
-                <div class="title-card">
-                    <h2>Pengajian</h2>
-                </div>
-                <div class="text-card">
-                    <p>Acara ini merupakan acara pengajian mingguan yang dilaksanakan di Masjid.</p>
-                </div>
-                <div class="button-card">
-                    <a href=""><button id="read-more-btn">Read More</button></a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="image-card">
-                    <img src="img/card-isra.png" alt="">
-                </div>
-                <div class="title-card">
-                    <h2>Isra Mi'raj</h2>
-                </div>
-                <div class="text-card">
-                    <p>Memperingati hari Isra Mi'Raj yang bertempat di Masjid Ar - Rahmah</p>
-                </div>
-                <div class="button-card">
-                    <a href=""><button id="read-more-btn">Read More</button></a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="image-card">
-                    <img src="img/card-pengajian.png" alt="">
-                </div>
-                <div class="title-card">
-                    <h2>Qurban</h2>
-                </div>
-                <div class="text-card">
-                    <p>Melaksanakan Qurban yang diselenggarakan pada Masjid Ar -  Rahmah.</p>
-                </div>
-                <div class="button-card">
-                    <a href=""><button id="read-more-btn">Read More</button></a>
-                </div>
-            </div>
+            <?php
+            if (mysqli_num_rows($query_kegiatan) > 0) {
+                while ($fetch_data = mysqli_fetch_array($query_kegiatan)) {
+            ?>
+                    <div class="card">
+                        <div class="image-card">
+                            <img src="kegiatan/<?php echo $fetch_data['gambar'] ?>" alt="">
+                        </div>
+                        <div class="title-card">
+                            <h2><?php echo $fetch_data['namakegiatan'] ?></h2>
+                        </div>
+                        <div class="text-card">
+                            <p><?php echo $fetch_data['deskripsi'] ?></p>
+                        </div>
+                        <div class="button-card">
+                            <a href="detail-kegiatan.php?id=<?php echo $fetch_data['id'] ?>"><button id="read-more-btn">Read More</button></a>
+                        </div>
+                    </div>
+            <?php
+                }
+            }
+            ?>
         </div>
     </div>
 
@@ -119,7 +102,7 @@
         <div class="content">
             <div class="text-content">
                 <p>Perumnas BCK Blok D RT 05/RW 10</p>
-            </div>        
+            </div>
             <div class="text-content">
                 <p>Cilegon, Banten</p>
             </div>
@@ -128,7 +111,7 @@
             </div>
             <div class="text-content">
                 <p>Email : masjidar-rahmah@gmail.com</p>
-            </div>      
+            </div>
         </div>
         <div class="break-line">
             <hr>
@@ -138,4 +121,5 @@
         </div>
     </div>
 </body>
+
 </html>

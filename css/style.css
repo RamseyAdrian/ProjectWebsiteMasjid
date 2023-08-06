@@ -18,7 +18,7 @@
 }
 
 #navbar .logo img {
-  width: 70%;
+  width: 60%;
 }
 
 #navbar .button {
@@ -30,7 +30,7 @@
 #login-btn {
   cursor: pointer;
   background-color: #ffb356;
-  font-size: 28px;
+  font-size: 20px;
   padding: 8px 39px 8px;
   border: 1px solid #ffb356;
   color: #ffff;
@@ -40,22 +40,22 @@
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
+#hero {
+  background-image: linear-gradient(#05934a8f, #05934a8f),
+    url(../img/bg-landing.png);
+}
+
 #hero .hero-box {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-
+  justify-content: center;
   margin: 0 auto;
-  margin-top: 4em;
   margin-bottom: 5em;
-  width: 90%;
-  height: 498px;
+  height: 550px;
   left: 95px;
   top: 135px;
-  background: #05934a;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
     0px 2px 4px -2px rgba(0, 0, 0, 0.05);
-  border-radius: 20px;
 }
 
 #hero .hero-box .text-section {
@@ -70,6 +70,7 @@
   line-height: 150%;
   /* or 60px */
   color: #ffffff;
+  text-align: center;
 }
 
 #hero .hero-box .text-section .lower-text h4 {
@@ -81,6 +82,7 @@
   line-height: 150%;
   /* or 30px */
   color: #ffffff;
+  text-align: center;
 }
 
 #hero .hero-box .image-section {
@@ -156,6 +158,19 @@
   color: #000000;
 }
 
+#more-info .see-more-link {
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#more-info .see-more-link a {
+  color: #ffb356;
+  font-weight: bolder;
+  text-decoration: underline;
+  margin-right: 5px;
+}
+
 /*-----------------CARD SECTION------------------------*/
 
 #more-info .card-section {
@@ -171,8 +186,8 @@
 }
 
 #more-info .card-section .card .image-card img {
-  width: 500px;
-  height: 300px;
+  width: 450px;
+  height: 200px;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
 }
