@@ -94,6 +94,129 @@
   align-self: flex-end;
 }
 
+/*-----------------REPORT INFO SECTION------------------------*/
+
+#report-info {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#report-info .more-report-link {
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2em;
+}
+
+#report-info .more-report-link a {
+  color: #ffb356;
+  font-weight: bolder;
+  text-decoration: underline;
+  margin-right: 5px;
+}
+
+#report-info .report-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#report-info .report-content .pemasukkan {
+  display: flex;
+  flex-direction: column;
+  width: 604px;
+  height: 353px;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-200, #e5e7eb);
+  background: var(--white, #fff);
+
+  /* shadow-md */
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.05),
+    0px 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+#report-info .report-content .pemasukkan .heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#report-info .report-content .pemasukkan .heading .text-part h3 {
+  color: #111928;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 36px */
+}
+
+#report-info .report-content .pemasukkan .heading .input-part form {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+#report-info .report-content .perbandingan {
+  width: 604px;
+  height: 353px;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-200, #e5e7eb);
+  background: var(--white, #fff);
+
+  /* shadow-md */
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.05),
+    0px 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+#report-info .report-content .perbandingan .heading .text-part h3 {
+  color: #111928;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 36px */
+}
+
+#report-info .report-content .perbandingan .heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#report-info .report-content .perbandingan .heading .input-part form {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+/*-----------------LIHAT LAPORAN LANDING PAGE SECTION------------------------*/
+#laporan-info {
+  margin-top: 4em;
+}
+
+#laporan-info .head-info-laporan {
+  width: 91%;
+  margin: 0 auto;
+}
+
+#laporan-info .head-info-laporan h1 {
+  color: #1f2a37;
+  font-family: Inter;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+}
+
+#laporan-info .laporan-content {
+  width: 91%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 /*-----------------PRAYING INFO SECTION------------------------*/
 
 #praying-info {
@@ -336,7 +459,4 @@
   margin-top: 1em;
   display: flex;
   justify-content: center;
-}
-
-#dashboard-box {
 }

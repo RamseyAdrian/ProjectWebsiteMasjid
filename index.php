@@ -2,6 +2,10 @@
 include 'db.php';
 
 $query_kegiatan = mysqli_query($conn, "SELECT * FROM informasikegiatan ORDER BY tanggal LIMIT 3");
+$query_bulan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '2023' ");
+$query_nilai = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '2023' ");
+$query_keterangan = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
+$query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
 ?>
 
 <!DOCTYPE html>
@@ -16,12 +20,18 @@ $query_kegiatan = mysqli_query($conn, "SELECT * FROM informasikegiatan ORDER BY 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
     <!--------------------CSS-------------------------------------------->
     <link rel="stylesheet" href="css/style.css">
+    <!--------------------JQuery-------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!--------------------ChartJs-------------------------------------------->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div id="navbar">
         <div class="logo">
-            <img src="img/logo.jpg" alt="">
+            <a href="index.php">
+                <img src="img/logo.jpg" alt="">
+            </a>
         </div>
         <div class="button">
             <a href="login.php"><button id="login-btn">Login</button></a>
@@ -42,21 +52,159 @@ $query_kegiatan = mysqli_query($conn, "SELECT * FROM informasikegiatan ORDER BY 
             </div>
         </div>
     </div>
-    <div id="praying-info">
-        <div class="text-section">
-            <h3>Praying Time</h3>
-            <br>
-            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br> sed do eiusmod tempor incididunt ut labore
-                et
-                dolore magna aliqua.<br>
 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo<br>
-                consequat.</h4>
+
+
+    <div id="report-info">
+        <div class="more-report-link">
+            <a href="lihat-laporan.php">Lihat Laporan Keuangan</a>
+            <img src="img/panahkanan.svg" alt="">
         </div>
-        <div class="table-praying">
-            <img src="img/Table.png" alt="">
+        <div class="report-content">
+            <div class="pemasukkan">
+                <div class="heading">
+                    <div class="text-part">
+                        <h3>Pemasukkan</h3>
+                    </div>
+                    <!-- <div class="input-part">
+                        <form action="" method="POST">
+                            <select id="pilih-tahun" name="tahun" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option>Pilih Tahun</option>
+                                <option value="2023">2023</option>
+                            </select>
+                            <input type="submit" name="graph-masuk" class="w-full text-white bg-green-700 
+                            hover:bg-green-800 focus:ring-4 focus:outline-none 
+                            focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2
+                             text-center dark:bg-blue-600 dark:hover:bg-blue-700 
+                             dark:focus:ring-blue-800" value="Tampilkan">
+                        </form>
+                    </div> -->
+                </div>
+                <div class="graph">
+                    <canvas id="bar-pemasukkan">
+                    </canvas>
+                </div>
+            </div>
+            <div class="perbandingan">
+                <div class="heading">
+                    <div class="text-part">
+                        <h3>Perbandingan Keuangan</h3>
+                    </div>
+                    <!-- <div class="input-part">
+                        <form action="" method="POST">
+                            <select id="pilih-bulan" name="tahun" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option>Pilih Bulan</option>
+                                <option value="2023">2023</option>
+                            </select>
+                            <input type="submit" name="graph-banding" class="w-full text-white bg-green-700 
+                            hover:bg-green-800 focus:ring-4 focus:outline-none 
+                            focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2
+                             text-center dark:bg-blue-600 dark:hover:bg-blue-700 
+                             dark:focus:ring-blue-800" value="Tampilkan">
+                        </form>
+                    </div> -->
+                </div>
+                <div class="graph">
+                    <canvas id="bar-perbandingan"></canvas>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        var graph_pemasukkan = document.getElementById('bar-pemasukkan').getContext("2d");
+        var data = {
+            labels: [<?php while ($bulan = mysqli_fetch_array($query_bulan)) {
+                            echo '"' . $bulan['namabulan'] . '",';
+                        } ?>],
+            datasets: [{
+                label: "Pemasukkan Tahunan",
+                data: [<?php while ($nilai = mysqli_fetch_array($query_nilai)) {
+                            echo '"' . $nilai['nilai'] . '",';
+                        } ?>],
+                backgroundColor: [
+                    '#05934A'
+
+                ]
+            }]
+        };
+
+        var barChartPemasukan = new Chart(document.getElementById('bar-pemasukkan'), {
+            type: 'bar',
+            data: data,
+            options: {
+                plugins: {
+                    legend: false // Hide legend
+                },
+                barValueSpacing: 20,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                        }
+                    }]
+                }
+            }
+        });
+
+        var graph_perbandingan = document.getElementById("bar-perbandingan").getContext("2d");
+        var data_perbandingan = {
+            labels: [<?php while ($ket = mysqli_fetch_array($query_keterangan)) {
+                            echo '"' . $ket['keterangan'] . '",';
+                        } ?>],
+            datasets: [{
+                label: "Perbandingan Keuangan",
+                data: [<?php while ($nilai2 = mysqli_fetch_array($query_nilai2)) {
+                            echo '"' . $nilai2['nilai'] . '",';
+                        } ?>],
+                backgroundColor: [
+                    '#05934A',
+                    '#F05252',
+                    '#FFB356'
+
+                ]
+            }]
+        };
+
+        var barChartPerbandingan = new Chart(graph_perbandingan, {
+            type: 'bar',
+            data: data_perbandingan,
+            options: {
+                plugins: {
+                    legend: false // Hide legend
+                },
+                indexAxis: 'y',
+                barValueSpacing: 20,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                        }
+                    }],
+                    x: {
+                        display: false // Hide X axis labels
+                    }
+                }
+            }
+        });
+    </script>
+
     <div id="more-info">
         <center>
             <div class="head-info">
