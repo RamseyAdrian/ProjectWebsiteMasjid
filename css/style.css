@@ -224,6 +224,86 @@
   margin-bottom: 1em;
 }
 
+/*-------------------Untuk Detail Kegiatan------------------*/
+
+#more-info .head-info-kegiatan {
+  width: 91%;
+  margin: 0 auto;
+}
+
+#more-info .head-info-kegiatan h1 {
+  color: #1f2a37;
+  font-family: Inter;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+}
+
+#more-info .head-info-2 {
+  width: 91%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+#more-info .head-info-2 .date {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#more-info .head-info-2 .date p {
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+}
+
+#more-info .head-info-2 .person {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#more-info .head-info-2 .person p {
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+}
+
+#more-info .kegiatan-content {
+  width: 91%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}
+
+#more-info .kegiatan-content .text-section {
+  width: 50%;
+}
+
+#more-info .kegiatan-content .image-section {
+  width: 50%;
+}
+
+#more-info .kegiatan-content .text-section p {
+  color: #000;
+  text-align: justify;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 30px */
+}
+
 /*-----------------FOOTER SECTION------------------------*/
 
 #footer {

@@ -82,7 +82,7 @@ $query_kegiatan = mysqli_query($conn, "SELECT * FROM informasikegiatan ORDER BY 
                             <h2><?php echo $fetch_data['namakegiatan'] ?></h2>
                         </div>
                         <div class="text-card">
-                            <p><?php echo $fetch_data['deskripsi'] ?></p>
+                            <p><?php echo substr($fetch_data['deskripsi'], 0, 100) ?></p>
                         </div>
                         <div class="button-card">
                             <a href="detail-kegiatan.php?id=<?php echo $fetch_data['id'] ?>"><button id="read-more-btn">Read More</button></a>
