@@ -350,10 +350,9 @@ if ($_SESSION['status_login'] != true) {
                                     </div>
                                 </div>
                                 <div class="right-part">
-                                    <div class="">
+                                    <div>
                                         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Keterangan</label>
-                                        <textarea id="message" name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tuliskan info tambahan">
-                                     </textarea>
+                                        <textarea id="message" name="deskripsi" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Keterangan Tambahan"></textarea>
                                     </div>
                                     <div>
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Penanggung Jawab</label>
@@ -453,7 +452,7 @@ if ($_SESSION['status_login'] != true) {
                 $format_tanggal = date_create_from_format('m/d/Y', $_POST['date']);
                 $tanggal = $format_tanggal->format('Y-m-d');
                 $pjawab = $_POST['organizer'];
-                $deskripsi = addslashes($_POST['message']);
+                $deskripsi = addslashes($_POST['deskripsi']);
 
                 $input_data = mysqli_query($conn, "INSERT INTO 
                             informasikegiatan VALUE (
