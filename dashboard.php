@@ -288,7 +288,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahu
                   <h1>Pemasukkan Mingguan</h1>
                </div>
                <div class="total">
-                  <p id="income">Rp500.000</p>
+                  <p id="income">Rp500.000,00</p>
                </div>
             </div>
             <div class="report-card">
@@ -296,7 +296,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahu
                   <h1>Pengeluaran Mingguan</h1>
                </div>
                <div class="total">
-                  <p id="outcome">- Rp200.000</p>
+                  <p id="outcome">- Rp200.000,00</p>
                </div>
             </div>
             <div class="report-card">
@@ -304,7 +304,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahu
                   <h1>Saldo</h1>
                </div>
                <div class="total">
-                  <p id="balance">Rp300.000</p>
+                  <p id="balance">Rp300.000,00</p>
                </div>
             </div>
          </div>

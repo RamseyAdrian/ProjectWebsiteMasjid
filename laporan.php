@@ -328,9 +328,9 @@ if ($_SESSION['status_login'] != true) {
             $jumlah_keluar = 0;
         ?>
             <!------------------------------TABLE---------------------------------------->
-            <div class="h-48 mb-4 ">
+            <div class="">
 
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div class=" relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style="width: 100%;">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -427,9 +427,12 @@ if ($_SESSION['status_login'] != true) {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="px-6 py-3 text-teal-600"><?php echo $_SESSION['masuk'] ?></td>
-                                <td class="px-6 py-3 text-red-600"><?php echo $_SESSION['keluar'] ?></td>
-                                <td class="px-6 py-3 text-blue-600"><?php echo $_SESSION['saldo'] ?></td>
+                                <td class="px-6 py-3 text-teal-600"><?php echo $_SESSION['masuk'];
+                                                                    $_SESSION['masuk'] = 0; ?></td>
+                                <td class="px-6 py-3 text-red-600"><?php echo $_SESSION['keluar'];
+                                                                    $_SESSION['keluar'] = 0; ?></td>
+                                <td class="px-6 py-3 text-blue-600"><?php echo $_SESSION['saldo'];
+                                                                    $_SESSION['saldo'] = 0; ?></td>
                             </tr>
                         </tfoot>
                     </table>

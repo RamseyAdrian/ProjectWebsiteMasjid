@@ -106,7 +106,7 @@ include 'db.php';
             $_SESSION['saldo'] = 0;
         ?>
             <!------------------------------TABLE---------------------------------------->
-            <div class="h-48 mb-4 ">
+            <div class="">
 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style="width: 1380px;">
@@ -205,9 +205,12 @@ include 'db.php';
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="px-6 py-3 text-teal-600"><?php echo $_SESSION['masuk'] ?></td>
-                                <td class="px-6 py-3 text-red-600"><?php echo $_SESSION['keluar'] ?></td>
-                                <td class="px-6 py-3 text-blue-600"><?php echo $_SESSION['saldo'] ?></td>
+                                <td class="px-6 py-3 text-teal-600"><?php echo $_SESSION['masuk'];
+                                                                    $_SESSION['masuk'] = 0; ?></td>
+                                <td class="px-6 py-3 text-red-600"><?php echo $_SESSION['keluar'];
+                                                                    $_SESSION['keluar'] = 0;  ?></td>
+                                <td class="px-6 py-3 text-blue-600"><?php echo $_SESSION['saldo'];
+                                                                    $_SESSION['saldo'] = 0; ?></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -218,7 +221,7 @@ include 'db.php';
         }
         ?>
     </div>
-    <br><br><br><br><br><br>
+    <br><br><br><br>
 
     <div id="footer">
         <div class="title">

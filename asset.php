@@ -29,6 +29,18 @@ if ($_SESSION['status_login'] != true) {
             justify-content: flex-end;
             align-items: center;
         }
+
+        .action-btn {
+            color: var(--gray-500, #6B7280);
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%;
+            margin: 5px;
+            /* 21px */
+            text-decoration-line: underline;
+        }
     </style>
 </head>
 
@@ -421,8 +433,8 @@ if ($_SESSION['status_login'] != true) {
                                             ?>
                                         </td>
                                         <td class="px-6 py-4 text-left">
-                                            <a href="update-asset.php?id=<?php echo $fetch_data['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a><span> || </span>
-                                            <a href="hapus-data.php?idas=<?php echo $fetch_data['id'] ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
+                                            <a href="update-asset.php?id=<?php echo $fetch_data['id'] ?>" class="action-btn">Edit</a>
+                                            <a href="hapus-data.php?idas=<?php echo $fetch_data['id'] ?>" class="action-btn" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
                                         </td>
                                     </tr>
                             <?php
