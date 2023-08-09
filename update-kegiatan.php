@@ -342,11 +342,11 @@ $tanggal = $format_tanggal->format('m/d/Y');
                 </form>
                 <?php
                 if (isset($_POST['submit'])) {
-                    $namakegiatan = $_POST['namakegiatan'];
+                    $namakegiatan = addslashes($_POST['namakegiatan']);
                     $format_tanggal2 = date_create_from_format('m/d/Y', $_POST['tanggal']);
                     $tanggal_baru = $format_tanggal2->format('Y-m-d');
                     $pjawab = $_POST['penanggungjawab'];
-                    $deskripsi = $_POST['deskripsi'];
+                    $deskripsi = addslashes($_POST['deskripsi']);
 
                     //Menampung file yang diupload
                     $filename = $_FILES['addfile']['name'];

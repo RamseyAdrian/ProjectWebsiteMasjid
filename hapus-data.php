@@ -15,6 +15,7 @@ if (isset($_GET['idpeng'])) {
 
 if (isset($_GET['idkeg'])) {
     $hapus_kegiatan = mysqli_query($conn, "DELETE FROM informasikegiatan WHERE id_kegiatan = '" . $_GET['idkeg'] . "' ");
+    $hapus_gambar_kegiatan = mysqli_query($conn, "DELETE  FROM gambarkegiatan WHERE id_kegiatan = '" . $_GET['idkeg'] . "' ");
     echo '<script>window.location="kegiatan.php"</script>';
 }
 

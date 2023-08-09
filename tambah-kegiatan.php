@@ -314,55 +314,9 @@ if ($_SESSION['status_login'] != true) {
             </div>
             <br><br>
             <div class=" h-48 mb-4 rounded">
-                <!-- <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
-                    <div>
-                        <label for="activity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kegiatan</label>
-                        <input name="activity_name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Nama Kegiatan" required>
-                    </div>
-                    <div>
-                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
-                        <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                </svg>
-                            </div>
-                            <input datepicker datepicker-autohide type="text" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penanggung Jawab</label>
-                        <input name="organizer" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personel Penanggung Jawab Kegiatan" required>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Gambar</label>
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
-                                     cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
-                                     dark:border-gray-600 dark:placeholder-gray-400" name="addpic" id="file_input" type="file" required>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload File</label>
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
-                                     cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
-                                     dark:border-gray-600 dark:placeholder-gray-400" name="addfile" id="file_input" type="file" required>
-                    </div>
-                    <div>
-                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
-                        <textarea id="message" name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
-                                    rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
-                                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tuliskan info tambahan"></textarea>
-                    </div>
-                    <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-
-                    <br><br>
-                </form> -->
                 <section class="bg-white dark:bg-gray-900">
                     <div class="">
-                        <form action="input-kegiatan.php" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <div id="form-part">
                                 <div class="left-part">
                                     <div class="">
@@ -398,9 +352,7 @@ if ($_SESSION['status_login'] != true) {
                                 <div class="right-part">
                                     <div class="">
                                         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Keterangan</label>
-                                        <textarea id="message" name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
-                                            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
-                                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tuliskan info tambahan">
+                                        <textarea id="message" name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tuliskan info tambahan">
                                      </textarea>
                                     </div>
                                     <div>
@@ -490,73 +442,121 @@ if ($_SESSION['status_login'] != true) {
                         }
                         ?> -->
             </div>
-            <!-- <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-            </div>
-            <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-            </div> -->
+
+            <?php
+            if (isset($_POST['submit'])) {
+
+                $images = $_FILES['images'];
+                $id = rand();
+                $namakegiatan = addslashes($_POST['activity_name']);
+                //mengubah format tanggal supaya bisa diterima MySQL
+                $format_tanggal = date_create_from_format('m/d/Y', $_POST['date']);
+                $tanggal = $format_tanggal->format('Y-m-d');
+                $pjawab = $_POST['organizer'];
+                $deskripsi = addslashes($_POST['message']);
+
+                $input_data = mysqli_query($conn, "INSERT INTO 
+                            informasikegiatan VALUE (
+                                '" . $id . "',
+                                '" . $namakegiatan . "',
+                                '" . $tanggal . "',
+                                NULL,
+                                '" . $newfile . "',
+                                '" . $deskripsi . "',
+                                '" . $pjawab . "'
+                            )");
+
+                # Number of images
+                $num_of_imgs = count($images['name']);
+
+                for ($i = 0; $i < $num_of_imgs; $i++) {
+
+                    # get the image info and store them in var
+                    $image_name = $images['name'][$i];
+                    $tmp_name   = $images['tmp_name'][$i];
+                    $error      = $images['error'][$i];
+
+                    # if there is not error occurred while uploading
+                    if ($error === 0) {
+
+                        # get image extension store it in var
+                        $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+
+                        /* 
+                        convert the image extension into lower case 
+                        and store it in var 
+                         */
+                        $img_ex_lc = strtolower($img_ex);
+
+                        /* 
+                        crating array that stores allowed
+                        to upload image extensions.
+                         */
+                        $allowed_exs = array('jpg', 'jpeg', 'png');
+
+
+                        /* 
+                        check if the the image extension 
+                        is present in $allowed_exs array
+                         */
+
+                        if (in_array($img_ex_lc, $allowed_exs)) {
+                            $id_gambar = rand();
+                            /* 
+                             renaming the image name with 
+                             with random string
+                             */
+                            $new_img_name = uniqid('Foto-', true) . '.' . $img_ex_lc;
+
+                            # crating upload path on root directory
+                            $img_upload_path = 'kegiatan/' . $new_img_name;
+
+                            # inserting imge name into database
+
+                            $input_gambar_db = mysqli_query($conn, "INSERT INTO gambarkegiatan 
+                            VALUE (
+                               '" . $id_gambar . "',
+                               '" . $id . "',
+                               '" . $new_img_name . "'
+                            )");
+
+                            # move uploaded image to 'uploads' folder
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                        } else {
+                            # error message
+                            $em = "Tidak bisa mengupload file selain gambar";
+
+                            /*
+                            redirect to 'index.php' and 
+                            passing the error message
+                            */
+
+                            header("Location: tambah-kegiatan.php?error=$em");
+                        }
+                    } else {
+                        # error message
+                        $em = "Terjadi Kesalahan dalam mengunggah file";
+
+                        /*
+                        redirect to 'index.php' and 
+                        passing the error message
+                        */
+
+                        header("Location: tambah-kegiatan.php?error=$em");
+                    }
+                }
+                echo '<script>Swal.fire({
+                    title: "Berhasil Tambah Kegiatan",
+                    text: "Klik OK Untuk Lanjut",
+                    icon: "success"
+                  }).then(function() {
+                    window.location = "kegiatan.php";
+                  });
+                </script>';
+            }
+
+            ?>
+
         </div>
     </div>
 </body>
