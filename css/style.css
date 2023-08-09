@@ -5,6 +5,12 @@
 
 /*-----------------NAVBAR SECTION------------------------*/
 
+#separator {
+  width: 1px;
+  height: 43px;
+  background: #e5e7eb;
+}
+
 #navbar {
   display: flex;
   flex-direction: row;
@@ -43,6 +49,9 @@
 #hero {
   background-image: linear-gradient(#05934a8f, #05934a8f),
     url(../img/bg-landing.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #hero .hero-box {

@@ -5,6 +5,11 @@ include 'db.php';
 if ($_SESSION['status_login'] != true) {
    echo '<script>window.location="login.php"</script>';
 }
+
+$query_bulan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '2023' ");
+$query_nilai = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '2023' ");
+$query_keterangan = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
+$query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
 ?>
 
 <!DOCTYPE html>
@@ -14,9 +19,16 @@ if ($_SESSION['status_login'] != true) {
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Dashboard - Website Masjid Ar-Rahmah</title>
+   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
    <!--------------------Flowbite-------------------------------------------->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+   <!--------------------CSS-------------------------------------------->
+   <link rel="stylesheet" href="css/style-dashboard.css">
+   <!--------------------JQuery-------------------------------------------->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+   <!--------------------ChartJs-------------------------------------------->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -39,7 +51,7 @@ if ($_SESSION['status_login'] != true) {
                      <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Masjid Ar - Rahmah</span>
                   </a>
                </div>
-               <div class="flex items-center">
+               <div class="flex items-center" style="gap: 1em; align-items:center;">
                   <div class="flex items-center ml-3">
                      <div>
                         <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -63,6 +75,12 @@ if ($_SESSION['status_login'] != true) {
                         </ul>
                      </div>
                   </div>
+                  <div id="separator">
+                     <img src="img/separator.png" alt="" style="width: 1px;height: 43px;">
+                  </div>
+                  <div class="logout-btn">
+                     <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Yellow</button>
+                  </div>
                </div>
             </div>
          </div>
@@ -72,7 +90,7 @@ if ($_SESSION['status_login'] != true) {
          <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
             <ul class="space-y-2 font-medium">
                <li>
-                  <a href="dashboard.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <a href="dashboard.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 group">
                      <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                         <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
                         <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
@@ -248,82 +266,158 @@ if ($_SESSION['status_login'] != true) {
    <div class="p-4 sm:ml-64">
       <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
          <div class="grid grid-cols-3 gap-4 mb-4">
-            <h1>Dashboard</h1>
+            <h2 class="text-4xl font-bold dark:text-white">Dashboard</h2>
          </div>
-         <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">
-               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-               </svg>
-            </p>
-         </div>
-         <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                  </svg>
-               </p>
+         <br>
+         <div id="report-section">
+            <div class="report-card">
+               <div class="title">
+                  <h1>Pemasukkan</h1>
+               </div>
+               <div class="total">
+                  <p id="income">500000</p>
+               </div>
             </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                  </svg>
-               </p>
+            <div class="report-card">
+               <div class="title">
+                  <h1>Pengeluaran</h1>
+               </div>
+               <div class="total">
+                  <p id="outcome">200000</p>
+               </div>
             </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                  </svg>
-               </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                  </svg>
-               </p>
+            <div class="report-card">
+               <div class="title">
+                  <h1>Saldo</h1>
+               </div>
+               <div class="total">
+                  <p id="balance">300000</p>
+               </div>
             </div>
          </div>
-         <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">
-               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-               </svg>
-            </p>
-         </div>
-         <div class="grid grid-cols-2 gap-4">
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                  </svg>
-               </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                  </svg>
-               </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                  </svg>
-               </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                  </svg>
-               </p>
+         <div id="report-info">
+            <div class="report-content">
+               <div class="pemasukkan">
+                  <div class="heading">
+                     <div class="text-part">
+                        <h3>Pemasukkan</h3>
+                     </div>
+
+                  </div>
+                  <div class="graph">
+                     <canvas id="bar-pemasukkan">
+                     </canvas>
+                  </div>
+               </div>
+               <div class="perbandingan">
+                  <div class="heading">
+                     <div class="text-part">
+                        <h3>Perbandingan Keuangan</h3>
+                     </div>
+
+                  </div>
+                  <div class="graph">
+                     <canvas id="bar-perbandingan"></canvas>
+                  </div>
+               </div>
             </div>
          </div>
+
+         <script type="text/javascript">
+            var graph_pemasukkan = document.getElementById('bar-pemasukkan').getContext("2d");
+            var data = {
+               labels: [<?php while ($bulan = mysqli_fetch_array($query_bulan)) {
+                           echo '"' . $bulan['namabulan'] . '",';
+                        } ?>],
+               datasets: [{
+                  label: "Pemasukkan Tahunan",
+                  data: [<?php while ($nilai = mysqli_fetch_array($query_nilai)) {
+                              echo '"' . $nilai['nilai'] . '",';
+                           } ?>],
+                  backgroundColor: [
+                     '#05934A'
+
+                  ]
+               }]
+            };
+
+            var barChartPemasukan = new Chart(document.getElementById('bar-pemasukkan'), {
+               type: 'bar',
+               data: data,
+               options: {
+                  plugins: {
+                     legend: false // Hide legend
+                  },
+                  barValueSpacing: 20,
+                  scales: {
+                     y: {
+                        beginAtZero: true
+                     },
+                     yAxes: [{
+                        ticks: {
+                           min: 0,
+                        }
+                     }],
+                     xAxes: [{
+                        gridLines: {
+                           color: "rgba(0, 0, 0, 0)",
+                        }
+                     }]
+                  }
+               }
+            });
+
+            var graph_perbandingan = document.getElementById("bar-perbandingan").getContext("2d");
+            var data_perbandingan = {
+               labels: [<?php while ($ket = mysqli_fetch_array($query_keterangan)) {
+                           echo '"' . $ket['keterangan'] . '",';
+                        } ?>],
+               datasets: [{
+                  label: "Perbandingan Keuangan",
+                  data: [<?php while ($nilai2 = mysqli_fetch_array($query_nilai2)) {
+                              echo '"' . $nilai2['nilai'] . '",';
+                           } ?>],
+                  backgroundColor: [
+                     '#05934A',
+                     '#F05252',
+                     '#FFB356'
+
+                  ]
+               }]
+            };
+
+            var barChartPerbandingan = new Chart(graph_perbandingan, {
+               type: 'bar',
+               data: data_perbandingan,
+               options: {
+                  plugins: {
+                     legend: false // Hide legend
+                  },
+                  indexAxis: 'y',
+                  barValueSpacing: 20,
+                  scales: {
+                     y: {
+                        beginAtZero: true
+                     },
+                     yAxes: [{
+                        ticks: {
+                           min: 0,
+                        }
+                     }],
+                     xAxes: [{
+                        gridLines: {
+                           color: "rgba(0, 0, 0, 0)",
+                        }
+                     }],
+                     x: {
+                        display: false // Hide X axis labels
+                     }
+                  }
+               }
+            });
+         </script>
+
+
       </div>
    </div>
 </body>
