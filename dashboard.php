@@ -25,7 +25,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
    <!--------------------CSS-------------------------------------------->
-   <link rel="stylesheet" href="css/style-dashboard.css">
+   <link rel="stylesheet" href="css/style-admin.css">
    <!--------------------JQuery-------------------------------------------->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
    <!--------------------ChartJs-------------------------------------------->
@@ -80,7 +80,9 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
                      <img src="img/separator.png" alt="" style="width: 1px;height: 43px;">
                   </div>
                   <div class="logout-btn">
-                     <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Yellow</button>
+                     <a href="logout.php">
+                        <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Log Out</button>
+                     </a>
                   </div>
                </div>
             </div>
@@ -164,7 +166,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
                      <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Masjid Ar - Rahmah</span>
                   </a>
                </div>
-               <div class="flex items-center">
+               <div class="flex items-center" style="gap: 1em; align-items:center;">
                   <div class="flex items-center ml-3">
                      <div>
                         <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -187,6 +189,14 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
                            </li>
                         </ul>
                      </div>
+                  </div>
+                  <div id="separator">
+                     <img src="img/separator.png" alt="" style="width: 1px;height: 43px;">
+                  </div>
+                  <div class="logout-btn">
+                     <a href="logout.php">
+                        <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Log Out</button>
+                     </a>
                   </div>
                </div>
             </div>

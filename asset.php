@@ -52,7 +52,7 @@ if ($_SESSION['status_login'] != true) {
                             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Masjid Ar - Rahmah</span>
                         </a>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" style="gap: 1em; align-items:center;">
                         <div class="flex items-center ml-3">
                             <div>
                                 <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -71,10 +71,18 @@ if ($_SESSION['status_login'] != true) {
                                 </div>
                                 <ul class="py-1" role="none">
                                     <li>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+                                        <a href="logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                        <div id="separator">
+                            <img src="img/separator.png" alt="" style="width: 1px;height: 43px;">
+                        </div>
+                        <div class="logout-btn">
+                            <a href="logout.php">
+                                <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Log Out</button>
+                            </a>
                         </div>
                     </div>
                 </div>
