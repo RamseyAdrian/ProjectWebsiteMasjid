@@ -350,8 +350,8 @@ if ($_SESSION['status_login'] != true) {
                                             <?php echo $fetch_data['dokumen'] ?>
                                         </td>
                                         <td class="px-6 py-4 text-left">
-                                            <a href="update-kegiatan.php?id=<?php echo $fetch_data['id'] ?>" class="action-btn">Edit</a>
-                                            <a href="hapus-data.php?idkeg=<?php echo $fetch_data['id'] ?>" class="action-btn" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
+                                            <a href="update-kegiatan.php?id=<?php echo $fetch_data['id_kegiatan'] ?>" class="action-btn">Edit</a>
+                                            <a href="hapus-data.php?idkeg=<?php echo $fetch_data['id_kegiatan'] ?>" class="action-btn" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
                                         </td>
                                     </tr>
 

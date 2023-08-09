@@ -240,7 +240,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahu
                             <p><?php echo substr($fetch_data['deskripsi'], 0, 100) ?></p>
                         </div>
                         <div class="button-card">
-                            <a href="detail-kegiatan.php?id=<?php echo $fetch_data['id'] ?>"><button id="read-more-btn">Read More</button></a>
+                            <a href="detail-kegiatan.php?id=<?php echo $fetch_data['id_kegiatan'] ?>"><button id="read-more-btn">Read More</button></a>
                         </div>
                     </div>
             <?php

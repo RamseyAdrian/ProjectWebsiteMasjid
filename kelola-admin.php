@@ -436,8 +436,8 @@ if ($_SESSION['status_login'] != true) {
                                             ?>
                                         </td>
                                         <td class="px-6 py-4 text-left">
-                                            <a href="update-asset.php?id=<?php echo $fetch_data['id'] ?>" class="action-btn">Edit</a>
-                                            <a href="hapus-data.php?idas=<?php echo $fetch_data['id'] ?>" class="action-btn" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
+                                            <a href="update-akun.php?id=<?php echo $fetch_data['id'] ?>" class="action-btn">Edit</a>
+                                            <a href="hapus-data.php?idak=<?php echo $fetch_data['id'] ?>" class="action-btn" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
                                         </td>
                                     </tr>
                             <?php

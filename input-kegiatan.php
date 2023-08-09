@@ -4,6 +4,13 @@ include 'db.php';
 if (isset($_POST['submit'])) {
 
     $images = $_FILES['images'];
+    $id = rand();
+    $namakegiatan = addslashes($_POST['activity_name']);
+    //mengubah format tanggal supaya bisa diterima MySQL
+    $format_tanggal = date_create_from_format('m/d/Y', $_POST['date']);
+    $tanggal = $format_tanggal->format('Y-m-d');
+    $pjawab = $_POST['organizer'];
+    $deskripsi = $_POST['message'];
 
     # Number of images
     $num_of_imgs = count($images['name']);
@@ -44,10 +51,10 @@ if (isset($_POST['submit'])) {
 				 renaming the image name with 
 				 with random string
                  */
-                $new_img_name = uniqid('IMG-', true) . '.' . $img_ex_lc;
+                $new_img_name = uniqid('Foto-', true) . '.' . $img_ex_lc;
 
                 # crating upload path on root directory
-                $img_upload_path = 'uploads/' . $new_img_name;
+                $img_upload_path = 'kegiatan/' . $new_img_name;
 
                 # inserting imge name into database
 
