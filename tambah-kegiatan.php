@@ -454,6 +454,18 @@ if ($_SESSION['status_login'] != true) {
                 $pjawab = $_POST['organizer'];
                 $deskripsi = addslashes($_POST['deskripsi']);
 
+                //Menampung file yang diupload
+                $filename = $_FILES['addfile']['name'];
+                $tmp_file = $_FILES['addfile']['tmp_name'];
+
+                $type1 = explode('.', $filename);
+                $type2 = $type1[1];
+
+                //rename file dokumen
+                $newfile = 'dokumen' . $id . '.' . $type2;
+
+                //Memasukkan data dokumen kedalam folder yang ditentukan
+                move_uploaded_file($tmp_file, './dokumen/' . $newfile);
                 $input_data = mysqli_query($conn, "INSERT INTO 
                             informasikegiatan VALUE (
                                 '" . $id . "',
