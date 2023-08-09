@@ -278,7 +278,7 @@ if ($_SESSION['status_login'] != true) {
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <h2 class="text-4xl font-bold dark:text-white">Aset Masjid</h2>
             </div>
-            <div class="top-btn h-48">
+            <div class="top-btn h-24">
                 <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
                     focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 
                     text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 

@@ -1,11 +1,16 @@
 <?php
 include 'db.php';
 
+$get_year = date("Y");
+$get_month_string = date("F");
+$get_month = date("m");
+$month_str = strval($get_month);
+
 $query_kegiatan = mysqli_query($conn, "SELECT * FROM informasikegiatan ORDER BY tanggal LIMIT 3");
-$query_bulan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '2023' ");
-$query_nilai = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '2023' ");
-$query_keterangan = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
-$query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
+$query_bulan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' ");
+$query_nilai = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' ");
+$query_keterangan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+$query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +71,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
             <div class="pemasukkan">
                 <div class="heading">
                     <div class="text-part">
-                        <h3>Pemasukkan</h3>
+                        <h3>Pemasukkan Tahun <?php echo $get_year ?></h3>
                     </div>
                     <!-- <div class="input-part">
                         <form action="" method="POST">
@@ -90,7 +95,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
             <div class="perbandingan">
                 <div class="heading">
                     <div class="text-part">
-                        <h3>Perbandingan Keuangan</h3>
+                        <h3>Perbandingan Keuangan Bulan <?php echo $get_month_string . " " . $get_year ?></h3>
                     </div>
                     <!-- <div class="input-part">
                         <form action="" method="POST">

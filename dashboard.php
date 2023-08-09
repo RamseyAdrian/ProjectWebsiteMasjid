@@ -5,11 +5,14 @@ include 'db.php';
 if ($_SESSION['status_login'] != true) {
    echo '<script>window.location="login.php"</script>';
 }
+$get_year = date("Y");
+$get_month = date("m");
+$month_str = strval($get_month);
 
-$query_bulan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '2023' ");
-$query_nilai = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '2023' ");
-$query_keterangan = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
-$query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
+$query_bulan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' ");
+$query_nilai = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' ");
+$query_keterangan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+$query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
 ?>
 
 <!DOCTYPE html>
@@ -282,18 +285,18 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
          <div id="report-section">
             <div class="report-card">
                <div class="title">
-                  <h1>Pemasukkan</h1>
+                  <h1>Pemasukkan Mingguan</h1>
                </div>
                <div class="total">
-                  <p id="income">500000</p>
+                  <p id="income">Rp500.000</p>
                </div>
             </div>
             <div class="report-card">
                <div class="title">
-                  <h1>Pengeluaran</h1>
+                  <h1>Pengeluaran Mingguan</h1>
                </div>
                <div class="total">
-                  <p id="outcome">200000</p>
+                  <p id="outcome">- Rp200.000</p>
                </div>
             </div>
             <div class="report-card">
@@ -301,7 +304,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
                   <h1>Saldo</h1>
                </div>
                <div class="total">
-                  <p id="balance">300000</p>
+                  <p id="balance">Rp300.000</p>
                </div>
             </div>
          </div>
@@ -310,7 +313,7 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
                <div class="pemasukkan">
                   <div class="heading">
                      <div class="text-part">
-                        <h3>Pemasukkan</h3>
+                        <h3>Pemasukkan Tahun <?php echo $get_year ?></h3>
                      </div>
 
                   </div>
@@ -392,7 +395,8 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
                      '#F05252',
                      '#FFB356'
 
-                  ]
+                  ],
+                  barThickness: 30
                }]
             };
 

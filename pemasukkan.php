@@ -277,10 +277,10 @@ if ($_SESSION['status_login'] != true) {
     ?>
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="grid grid-cols-3 gap-4">
                 <h2 class="text-4xl font-bold dark:text-white">Pemasukkan</h2>
             </div>
-            <div class="h-48 top-btn">
+            <div class="h-24 top-btn">
                 <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
                     focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
                     inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
