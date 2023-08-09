@@ -15,6 +15,8 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan ");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Masjid Ar-Rahmah</title>
+    <!--------------------Font Inter-------------------------------------------->
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <!--------------------Flowbite-------------------------------------------->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
