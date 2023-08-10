@@ -30,6 +30,7 @@ if ($_SESSION['status_login'] != true) {
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            gap: 1em;
         }
 
         .action-btn {
@@ -293,6 +294,17 @@ if ($_SESSION['status_login'] != true) {
                 <h2 class="text-4xl font-bold dark:text-white">Informasi Kegiatan</h2>
             </div>
             <div class="top-btn h-24 ">
+                <a href="">
+                    <button type="button" class="text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 
+                    focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 
+                    text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 
+                    dark:focus:ring-blue-800">
+                        <svg class="w-4 h-4 mr-1 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 19">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15h.01M4 12H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-3M9.5 1v10.93m4-3.93-4 4-4-4" />
+                        </svg>
+                        Unduh Template Laporan
+                    </button>
+                </a>
                 <a href="tambah-kegiatan.php">
                     <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
                     focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 

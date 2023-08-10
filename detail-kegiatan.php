@@ -1,8 +1,11 @@
 <?php
 include 'db.php';
 
-$query_kegiatan = mysqli_query($conn, "SELECT * FROM informasikegiatan WHERE id = '" . $_GET['id'] . "' ");
+$query_kegiatan = mysqli_query($conn, "SELECT * FROM informasikegiatan WHERE id_kegiatan = '" . $_GET['id'] . "' ");
+$query_pic = mysqli_query($conn, "SELECT * FROM gambarkegiatan WHERE id_kegiatan = '" . $_GET['id'] . "' LIMIT 1 ");
+$query_gambar = mysqli_query($conn, "SELECT * FROM gambarkegiatan WHERE id_kegiatan = '" . $_GET['id'] . "' LIMIT 4 ");
 $fetch_data = mysqli_fetch_array($query_kegiatan);
+$fetch_pic = mysqli_fetch_array($query_pic);
 ?>
 
 <!DOCTYPE html>
@@ -77,8 +80,22 @@ $fetch_data = mysqli_fetch_array($query_kegiatan);
                 </p>
             </div>
             <div class="image-section">
-                <img src="kegiatan/<?php echo $fetch_data['gambar'] ?>" alt="">
+                <div class="image-box">
+                    <img src="kegiatan/<?php echo $fetch_pic['namagambar'] ?>" alt="">
+                </div>
             </div>
+        </div>
+        <br><br>
+        <div class="more-picture">
+            <?php
+            while ($fetch_gambar = mysqli_fetch_array($query_gambar)) {
+            ?>
+                <div class="pic-box">
+                    <img src="kegiatan/<?php echo $fetch_gambar['namagambar'] ?>" alt="">
+                </div>
+            <?php
+            }
+            ?>
         </div>
     </div>
     <br><br>

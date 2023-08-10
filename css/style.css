@@ -426,6 +426,15 @@
   width: 50%;
 }
 
+#more-info .kegiatan-content .image-section .image-box img {
+  width: 549.395px;
+  height: 367px;
+  border-radius: 20px;
+  background: url(<path-to-image>), lightgray 50% / cover no-repeat;
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.25),
+    0px 6px 4px -1px rgba(0, 0, 0, 0.25);
+}
+
 #more-info .kegiatan-content .text-section p {
   color: #000;
   text-align: justify;
@@ -434,6 +443,24 @@
   font-style: normal;
   font-weight: 500;
   line-height: 150%; /* 30px */
+}
+
+#more-info .more-picture {
+  width: 91%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 1em;
+}
+
+#more-info .more-picture .pic-box img {
+  width: 280px;
+  height: 181px;
+  border-radius: 20px;
+  background: url(<path-to-image>), lightgray 50% / cover no-repeat;
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.25),
+    0px 6px 4px -1px rgba(0, 0, 0, 0.25);
 }
 
 /*-----------------FOOTER SECTION------------------------*/

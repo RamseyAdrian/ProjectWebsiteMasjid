@@ -5,6 +5,19 @@ include 'db.php';
 if ($_SESSION['status_login'] != true) {
     echo '<script>window.location="login.php"</script>';
 }
+
+$get_year = date("Y");
+$get_month = date("m");
+$ketbulan = date("M");
+$month_str = strval($get_month);
+$year_str = strval($get_year);
+
+$cek_db_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+$cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+$ada_db_pemasukkan = mysqli_num_rows($cek_db_pemasukkan);
+$ada_db_perbandingan = mysqli_num_rows($cek_db_perbandingan);
+$id_db = $year_str . $month_str;
+$id_db_new = intval($id_db);
 ?>
 
 <!DOCTYPE html>
@@ -291,6 +304,7 @@ if ($_SESSION['status_login'] != true) {
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="grid grid-cols-3 gap-4">
                 <h2 class="text-4xl font-bold dark:text-white">Pemasukkan</h2>
+                <?php echo $namabulan ?>
             </div>
             <div class="h-24 top-btn">
                 <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
@@ -372,6 +386,18 @@ if ($_SESSION['status_login'] != true) {
                                 $input_laporan = mysqli_query($conn, "INSERT INTO laporankeuangan VALUE (
                                     '" . $id . "', '" . $tanggal . "', '" . $sumber . "', '" . $_SESSION['name'] . "', 'Pemasukkan', '" . $total . "'
                                 )");
+
+                                if ($ada_db_pemasukkan == 0) {
+                                    $input_grafik_pemasukkan = mysqli_query($conn, "INSERT INTO grafikpemasukan VALUE (
+                                        '" . $id_db_new . "',
+                                        '" . $get_year . "',
+                                        '" . $month_str . "',
+                                        '" . $total . "',
+                                        '" . $ketbulan . "'
+                                    )");
+                                } else if ($ada_db_pemasukkan > 0) {
+                                    $ambil_nilai_pemasukkan = mysqli_query($conn, "SELECT FROM grafikpemasukan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+                                }
                             }
                             ?>
                         </div>

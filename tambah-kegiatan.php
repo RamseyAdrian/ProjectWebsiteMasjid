@@ -446,6 +446,7 @@ if ($_SESSION['status_login'] != true) {
             if (isset($_POST['submit'])) {
 
                 $images = $_FILES['images'];
+                $main_gambar = "";
                 $id = rand();
                 $namakegiatan = addslashes($_POST['activity_name']);
                 //mengubah format tanggal supaya bisa diterima MySQL
@@ -533,6 +534,16 @@ if ($_SESSION['status_login'] != true) {
 
                             # move uploaded image to 'uploads' folder
                             move_uploaded_file($tmp_name, $img_upload_path);
+
+                            $cek_gambar = mysqli_query($conn, "SELECT * FROM informasikegiatan 
+                            WHERE id_kegiatan = '" . $id . "' ");
+                            $fetch_keg_gambar = mysqli_fetch_array($cek_gambar);
+                            if ($fetch_keg_gambar['gambar'] == NULL) {
+                                $update_gambar = mysqli_query($conn, "UPDATE informasikegiatan SET 
+                                gambar = '" . $new_img_name . "'
+                                WHERE id_kegiatan = '" . $id . "'
+                                ");
+                            }
                         } else {
                             # error message
                             $em = "Tidak bisa mengupload file selain gambar";
