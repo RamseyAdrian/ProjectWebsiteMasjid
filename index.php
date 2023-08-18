@@ -11,6 +11,11 @@ $query_bulan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = 
 $query_nilai = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' ");
 $query_keterangan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
 $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+
+$query_saldo = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $get_year . "' ");
+$fetch_saldo = mysqli_fetch_array($query_saldo);
+$saldo = $fetch_saldo['nilai'];
+$ket_saldo = $fetch_saldo['keterangan'];
 ?>
 
 <!DOCTYPE html>
@@ -166,12 +171,14 @@ $query_nilai2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahu
         var data_perbandingan = {
             labels: [<?php while ($ket = mysqli_fetch_array($query_keterangan)) {
                             echo '"' . $ket['keterangan'] . '",';
-                        } ?>],
+                        }
+                        echo '"' . $ket_saldo . '",' ?>],
             datasets: [{
                 label: "Perbandingan Keuangan",
                 data: [<?php while ($nilai2 = mysqli_fetch_array($query_nilai2)) {
                             echo '"' . $nilai2['nilai'] . '",';
-                        } ?>],
+                        }
+                        echo '"' . $saldo . '",' ?>],
                 backgroundColor: [
                     '#05934A',
                     '#F05252',
