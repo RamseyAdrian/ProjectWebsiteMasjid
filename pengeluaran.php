@@ -301,14 +301,16 @@ $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHE
                 <h2 class="text-4xl font-bold dark:text-white">Pengeluaran</h2>
             </div>
             <div class="h-24 top-btn ">
-                <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
+                <a href="export-excel-peng.php">
+                    <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
                     focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
                     inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                    <svg class="w-5 h-5 mr-1 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                    </svg>
-                    Export Excel
-                </button>
+                        <svg class="w-5 h-5 mr-1 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                        </svg>
+                        Export Excel
+                    </button>
+                </a>
                 <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
                     focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 
                     text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 
@@ -469,9 +471,9 @@ $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHE
                                             <?php echo $fetch_data['keterangan'] ?>
                                         </td>
                                         <td class="px-6 py-4">
-                                            <?php echo $fetch_data['jumlah'] ?>
+                                            Rp<?php echo number_format($fetch_data['jumlah']) ?>
                                         </td>
-                                        <td class="px-6 py-4 text-left">
+                                        <td class="px-2 py-4 text-left">
                                             <a href="update-pengeluaran.php?id=<?php echo $fetch_data['id'] ?>" class="action-btn">Edit</a>
                                             <a href="hapus-data.php?idpeng=<?php echo $fetch_data['id'] ?>" class="action-btn" onclick="return confirm('Yakin hapus data ini ?') "> Remove</a>
                                         </td>
