@@ -5,6 +5,9 @@ include 'db.php';
 if ($_SESSION['status_login'] != true) {
     echo '<script>window.location="login.php"</script>';
 }
+$_SESSION['masuk'] = 0;
+$_SESSION['keluar'] = 0;
+$_SESSION['saldo'] = 0;
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +16,7 @@ if ($_SESSION['status_login'] != true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengeluaran - Website Masjid Ar-Rahmah</title>
+    <title>Laporan Keuangan - Website Masjid Ar-Rahmah</title>
     <!--------------------Font Inter-------------------------------------------->
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <!--------------------CSS-------------------------------------------->
@@ -310,6 +313,10 @@ if ($_SESSION['status_login'] != true) {
                         <input type="submit" name="tampilkan" value="Tampilkan" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
                     focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
                     inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 btn">
+                        <a href="laporan.php"><button type="button" style="color: black;" class="focus:outline-none text-white 
+                        bg-gray-200 hover:bg-gray-400 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-8 
+                        py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900">Reset</button>
+                        </a>
                     </div>
             </form>
         </div>
@@ -320,8 +327,10 @@ if ($_SESSION['status_login'] != true) {
         if (isset($_POST['tampilkan'])) {
             $format_mulai = date_create_from_format('m/d/Y', $_POST['mulai']);
             $mulai = $format_mulai->format('Y-m-d');
+            $_SESSION['tanggal_mulai'] = $mulai;
             $format_hingga = date_create_from_format('m/d/Y', $_POST['hingga']);
             $hingga = $format_hingga->format('Y-m-d');
+            $_SESSION['tanggal_hingga'] = $hingga;
             $no = 1;
             $saldo = 0;
             $jumlah_masuk = 0;
@@ -329,7 +338,11 @@ if ($_SESSION['status_login'] != true) {
         ?>
             <!------------------------------TABLE---------------------------------------->
             <div class="">
+                <form action="export.php" method="POST">
+                    <input type="submit" name="export" value="Export PDF" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                </form>
 
+                <br>
                 <div class=" relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style="width: 100%;">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -428,10 +441,13 @@ if ($_SESSION['status_login'] != true) {
                                 <td></td>
                                 <td></td>
                                 <td class="px-6 py-3 text-teal-600"><?php echo $_SESSION['masuk'];
+                                                                    $_SESSION['export_masuk'] = $_SESSION['masuk'];
                                                                     $_SESSION['masuk'] = 0; ?></td>
                                 <td class="px-6 py-3 text-red-600"><?php echo $_SESSION['keluar'];
+                                                                    $_SESSION['export_keluar'] = $_SESSION['keluar'];
                                                                     $_SESSION['keluar'] = 0; ?></td>
                                 <td class="px-6 py-3 text-blue-600"><?php echo $_SESSION['saldo'];
+                                                                    $_SESSION['export_saldo'] = $_SESSION['saldo'];
                                                                     $_SESSION['saldo'] = 0; ?></td>
                             </tr>
                         </tfoot>

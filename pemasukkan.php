@@ -6,18 +6,18 @@ if ($_SESSION['status_login'] != true) {
     echo '<script>window.location="login.php"</script>';
 }
 
-$get_year = date("Y");
-$get_month = date("m");
-$ketbulan = date("M");
-$month_str = strval($get_month);
-$year_str = strval($get_year);
+// $get_year = date("Y");
+// $get_month = date("m");
+// $ketbulan = date("M");
+// $month_str = strval($get_month);
+// $year_str = strval($get_year);
 
-$cek_db_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
-$cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
-$ada_db_pemasukkan = mysqli_num_rows($cek_db_pemasukkan);
-$ada_db_perbandingan = mysqli_num_rows($cek_db_perbandingan);
-$id_db = $year_str . $month_str;
-$id_db_new = intval($id_db);
+// $cek_db_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+// $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+// $ada_db_pemasukkan = mysqli_num_rows($cek_db_pemasukkan);
+// $ada_db_perbandingan = mysqli_num_rows($cek_db_perbandingan);
+// $id_db = $year_str . $month_str;
+// $id_db_new = intval($id_db);
 ?>
 
 <!DOCTYPE html>
@@ -304,7 +304,6 @@ $id_db_new = intval($id_db);
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="grid grid-cols-3 gap-4">
                 <h2 class="text-4xl font-bold dark:text-white">Pemasukkan</h2>
-                <?php echo $namabulan ?>
             </div>
             <div class="h-24 top-btn">
                 <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 
@@ -324,7 +323,6 @@ $id_db_new = intval($id_db);
                     </svg>
                     Tambah Pemasukkan
                 </button>
-
             </div>
             <!-----------------MODAL CRUD-------------------------------------------------------------->
             <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -376,6 +374,23 @@ $id_db_new = intval($id_db);
                                 $total = $_POST['total'];
                                 $sumber = $_POST['dana'];
 
+                                $get_year = date("Y", strtotime($tanggal));
+                                $get_month = date("m", strtotime($tanggal));
+                                $ketbulan = date("M", strtotime($tanggal));
+                                $month_int = intval($get_month);
+                                $year_int = intval($get_year);
+
+                                $id_db = $get_year . $get_month;
+                                $id_db2 = $get_year . $get_month . '01';
+                                $id_db_new = intval($id_db);
+                                $id_graf_pem = intval($id_db2);
+
+                                $cek_db_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $year_int . "' AND bulan = '" . $get_month . "' ");
+                                $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_graf_pem . "' AND jenis = '01' ");
+                                $ada_db_pemasukkan = mysqli_num_rows($cek_db_pemasukkan);
+                                $ada_db_perbandingan = mysqli_num_rows($cek_db_perbandingan);
+
+
                                 $input_data = mysqli_query($conn, "INSERT INTO pemasukkan VALUE (
                                         '" . $id . "', 
                                         '" . $tanggal . "',
@@ -390,13 +405,121 @@ $id_db_new = intval($id_db);
                                 if ($ada_db_pemasukkan == 0) {
                                     $input_grafik_pemasukkan = mysqli_query($conn, "INSERT INTO grafikpemasukan VALUE (
                                         '" . $id_db_new . "',
-                                        '" . $get_year . "',
-                                        '" . $month_str . "',
+                                        '" . $year_int . "',
+                                        '" . $get_month . "',
                                         '" . $total . "',
                                         '" . $ketbulan . "'
                                     )");
-                                } else if ($ada_db_pemasukkan > 0) {
-                                    $ambil_nilai_pemasukkan = mysqli_query($conn, "SELECT FROM grafikpemasukan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
+
+                                    if ($ada_db_perbandingan == 0) {
+                                        // $input_grafik_perbandingan_saldo = mysqli_query($conn, "INSERT INTO grafikperbandingan VALUE (
+                                        //     '" . $year_int . "',
+                                        //     '" . $year_int . "',
+                                        //     NULL,
+                                        //     '" . $total . "',
+                                        //     '03',
+                                        //     'Saldo Tahun $year_int'
+                                        // )");
+
+                                        $input_grafik_perbandingan_pemasukkan = mysqli_query($conn, "INSERT INTO grafikperbandingan VALUE (
+                                            '" . $id_graf_pem . "',
+                                            '" . $year_int . "',
+                                            '" . $get_month . "',
+                                            '" . $total . "',
+                                            '01',
+                                            'Pemasukkan $ketbulan $year_int'
+                                        )");
+
+                                        $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
+                                        $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
+                                        $var_saldo = $fetch_saldo['nilai'];
+
+                                        $var_saldo = $var_saldo + $total;
+                                        $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                            nilai = '" . $var_saldo . "'
+                                            WHERE id = '" . $year_int . "'
+                                        ");
+                                    } else {
+                                        $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
+                                        $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
+                                        $var_saldo = $fetch_saldo['nilai'];
+
+                                        $var_saldo = $var_saldo + $total;
+                                        $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                            nilai = '" . $var_saldo . "'
+                                            WHERE id = '" . $year_int . "'
+                                        ");
+
+                                        $ambil_saldo_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_graf_pem . "' ");
+                                        $fetch_saldo_pem = mysqli_fetch_array($ambil_saldo_pemasukkan);
+                                        $saldo_pem = $fetch_saldo_pem['nilai'];
+
+                                        $saldo_pem = $saldo_pem + $total;
+                                        $update_saldo_pemasukkan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                            nilai = '" . $saldo_pem . "'
+                                            WHERE id = '" . $id_graf_pem . "'
+                                        ");
+                                    }
+                                } else {
+                                    $ambil_nilai_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $year_int . "' AND bulan = '" . $get_month . "' ");
+                                    $fetch_pem = mysqli_fetch_array($ambil_nilai_pemasukkan);
+                                    $var_nilai = $fetch_pem['nilai'];
+
+                                    $var_nilai = $var_nilai + $total;
+                                    $update_pemasukkan = mysqli_query($conn, "UPDATE grafikpemasukan SET
+                                    nilai = '" . $var_nilai . "'
+                                    WHERE id = '" . $id_db_new . "'
+                                    ");
+
+                                    if ($ada_db_perbandingan == 0) {
+                                        // $input_grafik_perbandingan_saldo = mysqli_query($conn, "INSERT INTO grafikperbandingan VALUE (
+                                        //     '" . $year_int . "',
+                                        //     '" . $year_int . "',
+                                        //     NULL,
+                                        //     '" . $total . "',
+                                        //     '03',
+                                        //     'Saldo Tahun $year_int'
+                                        // )");
+
+                                        $input_grafik_perbandingan_pemasukkan = mysqli_query($conn, "INSERT INTO grafikperbandingan VALUE (
+                                            '" . $id_graf_pem . "',
+                                            '" . $year_int . "',
+                                            '" . $get_month . "',
+                                            '" . $total . "',
+                                            '01',
+                                            'Pemasukkan $ketbulan $year_int'
+                                        )");
+
+                                        $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
+                                        $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
+                                        $var_saldo = $fetch_saldo['nilai'];
+
+                                        $var_saldo = $var_saldo + $total;
+                                        $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                            nilai = '" . $var_saldo . "'
+                                            WHERE id = '" . $year_int . "'
+                                        ");
+                                    } else {
+                                        $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
+                                        $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
+                                        $var_saldo = $fetch_saldo['nilai'];
+
+                                        $var_saldo = $var_saldo + $total;
+                                        $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                            nilai = '" . $var_saldo . "'
+                                            WHERE id = '" . $year_int . "'
+                                        ");
+
+                                        $ambil_saldo_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_graf_pem . "' ");
+                                        $fetch_saldo_pem = mysqli_fetch_array($ambil_saldo_pemasukkan);
+                                        $saldo_pem = $fetch_saldo_pem['nilai'];
+
+                                        $saldo_pem = $saldo_pem + $total;
+                                        $update_saldo_pemasukkan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                            nilai = '" . $saldo_pem . "'
+                                            WHERE id = '" . $id_graf_pem . "'
+                                        ");
+                                    }
                                 }
                             }
                             ?>

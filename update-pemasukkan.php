@@ -11,6 +11,7 @@ if (mysqli_num_rows($query_data) == 0) {
     echo '<script>window.location = "pemasukkan.php"</script>';
 }
 $fetch_data = mysqli_fetch_array($query_data);
+$nilai_awal = $fetch_data['jumlah'];
 $format_tanggal = date_create_from_format('Y-m-d', $fetch_data['tanggal']);
 $tanggal = $format_tanggal->format('m/d/Y');
 ?>
@@ -294,10 +295,10 @@ $tanggal = $format_tanggal->format('m/d/Y');
                                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                 </svg>
                             </div>
-                            <input datepicker datepicker-autohide type="text" name="tanggal" class="bg-gray-50 border border-gray-300 
+                            <input type="text" name="tanggal" class="bg-gray-50 border border-gray-300 
                             text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  
                             dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                            dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal" value="<?php echo $tanggal ?>" required>
+                            dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal" value="<?php echo $tanggal ?>" readonly>
                         </div>
                     </div>
                     <div>
@@ -326,11 +327,56 @@ $tanggal = $format_tanggal->format('m/d/Y');
                     $jumlah = $_POST['total'];
                     $sumber = $_POST['dana'];
 
+                    $nilai_temp = $nilai_awal - $jumlah;
+
+                    $tahun = date('Y', strtotime($tanggal_baru));
+                    $bulan = date('m', strtotime($tanggal_baru));
+                    $tahun_int = intval($tahun);
+                    $id_db_graf_str = $tahun . $bulan . '01';
+                    $id_db_graf_int = intval($id_db_graf_str);
+                    $id_db_grafpem_str = $tahun . $bulan;
+                    $id_db_grafpem_int = intval($id_db_grafpem_str);
+
                     $update_pemasukkan = mysqli_query($conn, "UPDATE pemasukkan SET 
                         tanggal = '" . $tanggal_baru . "',
                         jumlah = '" . $jumlah . "',
                         sumber = '" . $sumber . "'
                         WHERE id = '" . $_GET['id'] . "'
+                    ");
+
+                    $update_laporan = mysqli_query($conn, "UPDATE laporankeuangan SET 
+                        nilai = '" . $jumlah . "'
+                        WHERE idLaporan = '" . $_GET['id'] . "'
+                    ");
+
+                    $query_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_graf_int . "' ");
+                    $fetch_perbandingan = mysqli_fetch_array($query_perbandingan);
+                    $nilai_perbandingan = $fetch_perbandingan['nilai'];
+
+                    $nilai_akhir = $nilai_perbandingan - $nilai_temp;
+                    $update_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET
+                        nilai = '" . $nilai_akhir . "'
+                        WHERE id = '" . $id_db_graf_int . "'
+                    ");
+
+                    $query_perbandingan2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $tahun_int . "' ");
+                    $fetch_perbandingan2 = mysqli_fetch_array($query_perbandingan2);
+                    $nilai_perbandingan2 = $fetch_perbandingan2['nilai'];
+
+                    $saldo_tahunan = $nilai_perbandingan2 - $nilai_temp;
+                    $update_perbandingan2 = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                        nilai = '" . $saldo_tahunan . "'
+                        WHERE id = '" . $tahun_int . "'
+                    ");
+
+                    $query_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE id = '" . $id_db_grafpem_int . "' ");
+                    $fetch_pemasukkan = mysqli_fetch_array($query_pemasukkan);
+                    $nilai_pemasukkan = $fetch_pemasukkan['nilai'];
+
+                    $nilai_akhir2 = $nilai_pemasukkan - $nilai_temp;
+                    $update_pemasukkan = mysqli_query($conn, "UPDATE grafikpemasukan SET 
+                        nilai = '" . $nilai_akhir2 . "'
+                        WHERE id = '" . $id_db_grafpem_int . "'
                     ");
 
                     if ($update_pemasukkan) {

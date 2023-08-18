@@ -11,6 +11,7 @@ if (mysqli_num_rows($query_data) == 0) {
     echo '<script>window.location = "pemasukkan.php"</script>';
 }
 $fetch_data = mysqli_fetch_array($query_data);
+$nilai_awal = $fetch_data['jumlah'];
 $format_tanggal = date_create_from_format('Y-m-d', $fetch_data['tanggal']);
 $tanggal = $format_tanggal->format('m/d/Y');
 ?>
@@ -323,11 +324,47 @@ $tanggal = $format_tanggal->format('m/d/Y');
                     $jumlah = $_POST['total'];
                     $keterangan = $_POST['keterangan'];
 
+                    $nilai_temp = $nilai_awal - $jumlah;
+
+                    $get_year = date("Y", strtotime($tanggal_baru));
+                    $get_month = date("m", strtotime($tanggal_baru));
+                    $ketbulan = date("M", strtotime($tanggal_baru));
+                    $month_int = intval($get_month);
+                    $year_int = intval($get_year);
+
+                    $id_db = $get_year . $get_month . '02';
+                    $id_db_keluar = intval($id_db);
+
                     $update_pengeluaran = mysqli_query($conn, "UPDATE pengeluaran SET 
                         tanggal = '" . $tanggal_baru . "',
                         jumlah = '" . $jumlah . "',
                         keterangan = '" . $keterangan . "'
                         WHERE id = '" . $_GET['id'] . "'
+                    ");
+
+                    $update_laporan = mysqli_query($conn, "UPDATE laporankeuangan SET
+                        nilai = '" . $jumlah . "'
+                        WHERE idLaporan = '" . $_GET['id'] . "'
+                    ");
+
+                    $query_perbandingan_keluar = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_keluar . "' ");
+                    $fetch_keluar = mysqli_fetch_array($query_perbandingan_keluar);
+                    $nilai_keluar = $fetch_keluar['nilai'];
+
+                    $nilai_keluar_akhir = $nilai_keluar - $nilai_temp;
+                    $update_perbandingan_keluar = mysqli_query($conn, "UPDATE grafikperbandingan SET
+                        nilai = '" . $nilai_keluar_akhir . "'
+                        WHERE id = '" . $id_db_keluar . "'
+                    ");
+
+                    $query_perbandingan_saldo = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $year_int . "' ");
+                    $fetch_saldo = mysqli_fetch_array($query_perbandingan_saldo);
+                    $nilai_saldo = $fetch_saldo['nilai'];
+
+                    $nilai_saldo_akhir = $nilai_saldo + $nilai_temp;
+                    $update_perbandingan_saldo = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                        nilai = '" . $nilai_saldo_akhir . "'
+                        WHERE id = '" . $year_int . "'
                     ");
 
                     if ($update_pengeluaran) {

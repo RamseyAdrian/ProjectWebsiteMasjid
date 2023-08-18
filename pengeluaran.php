@@ -5,6 +5,14 @@ include 'db.php';
 if ($_SESSION['status_login'] != true) {
     echo '<script>window.location="login.php"</script>';
 }
+
+$_get_year = date("Y");
+$get_month = date("m");
+$ketbulan = date("M");
+$month_str = strval($get_month);
+$year_str = strval($_get_year);
+
+$cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun")
 ?>
 
 <!DOCTYPE html>
@@ -357,6 +365,18 @@ if ($_SESSION['status_login'] != true) {
                                 $total = $_POST['total'];
                                 $detail = $_POST['detail'];
 
+                                $get_year = date("Y", strtotime($tanggal));
+                                $get_month = date("m", strtotime($tanggal));
+                                $ketbulan = date("M", strtotime($tanggal));
+                                $month_int = intval($get_month);
+                                $year_int = intval($get_year);
+
+                                $id_db = $get_year . $get_month . '02';
+                                $id_db_keluar = intval($id_db);
+
+                                $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_keluar . "' AND jenis = '02' ");
+                                $ada_db_perbandingan = mysqli_num_rows($cek_db_perbandingan);
+
                                 $input_data = mysqli_query($conn, "INSERT INTO pengeluaran VALUE (
                                         '" . $id . "', 
                                         '" . $tanggal . "',
@@ -367,6 +387,46 @@ if ($_SESSION['status_login'] != true) {
                                 $input_laporan = mysqli_query($conn, "INSERT INTO laporankeuangan VALUE (
                                             '" . $id . "', '" . $tanggal . "', '" . $detail . "', '" . $_SESSION['name'] . "', 'Pengeluaran', '" . $total . "'
                                         )");
+
+                                if ($ada_db_perbandingan == 0) {
+                                    $input_grafik_pengeluaran = mysqli_query($conn, "INSERT INTO grafikperbandingan VALUE (
+                                                '" . $id_db_keluar . "',
+                                                '" . $year_int . "',
+                                                '" . $get_month . "',
+                                                '" . $total . "',
+                                                '02',
+                                                'Pengeluaran $ketbulan $year_int'
+                                            )");
+                                    $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
+                                    $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
+                                    $var_saldo = $fetch_saldo['nilai'];
+
+                                    $var_saldo = $var_saldo - $total;
+                                    $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                                nilai = '" . $var_saldo . "'
+                                                WHERE id = '" . $year_int . "'
+                                            ");
+                                } else {
+                                    $query_saldo_pengeluaran = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_keluar . "' ");
+                                    $fetch_saldo = mysqli_fetch_array($query_saldo_pengeluaran);
+                                    $saldo_peng = $fetch_saldo['nilai'];
+
+                                    $saldo_peng = $saldo_peng + $total;
+                                    $update_saldo_pengeluaran = mysqli_query($conn, "UPDATE grafikperbandingan SET
+                                        nilai = '" . $saldo_peng . "'
+                                        WHERE id = '" . $id_db_keluar . "'
+                                    ");
+
+                                    $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
+                                    $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
+                                    $var_saldo = $fetch_saldo['nilai'];
+
+                                    $var_saldo = $var_saldo - $total;
+                                    $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                                nilai = '" . $var_saldo . "'
+                                                WHERE id = '" . $year_int . "'
+                                            ");
+                                }
                             }
                             ?>
                         </div>
@@ -426,37 +486,6 @@ if ($_SESSION['status_login'] != true) {
 
             </div>
             <br><br>
-
-            <!-- <div class="grid grid-cols-2 gap-4">
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                        </svg>
-                    </p>
-                </div>
-            </div> -->
         </div>
     </div>
 </body>
