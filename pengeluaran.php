@@ -9,6 +9,11 @@ if ($_SESSION['role_login'] == 'Sekretaris') {
     echo '<script>window.location="logout.php"</script>';
 }
 
+$query_saldo = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE jenis = '03' ");
+$fetch_saldo = mysqli_fetch_array($query_saldo);
+$saldo_masjid = $fetch_saldo['nilai'];
+
+$tanggal_sekarang = date('Y-m-d');
 
 $_get_year = date("Y");
 $get_month = date("m");
@@ -37,6 +42,7 @@ $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHE
     <!--------------------- Sweet Alert CDN ----------------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .top-btn {
             display: flex;
@@ -313,6 +319,7 @@ $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHE
     <?php
     }
     ?>
+
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="grid grid-cols-3 gap-4 mb-4">
@@ -367,7 +374,7 @@ $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHE
                                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                             </svg>
                                         </div>
-                                        <input datepicker datepicker-autohide type="text" name="tanggal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal">
+                                        <input datepicker datepicker-autohide type="text" name="tanggal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal" required>
                                     </div>
                                 </div>
                                 <div>
@@ -397,55 +404,79 @@ $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHE
                                 $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_keluar . "' AND jenis = '02' ");
                                 $ada_db_perbandingan = mysqli_num_rows($cek_db_perbandingan);
 
-                                $input_data = mysqli_query($conn, "INSERT INTO pengeluaran VALUE (
-                                        '" . $id . "', 
-                                        '" . $tanggal . "',
-                                        '" . $total . "',
-                                        '" . $detail . "' 
-                                        )");
-
-                                $input_laporan = mysqli_query($conn, "INSERT INTO laporankeuangan VALUE (
-                                            '" . $id . "', '" . $tanggal . "', '" . $detail . "', '" . $_SESSION['name'] . "', 'Pengeluaran', '" . $total . "'
-                                        )");
-
-                                if ($ada_db_perbandingan == 0) {
-                                    $input_grafik_pengeluaran = mysqli_query($conn, "INSERT INTO grafikperbandingan VALUE (
-                                                '" . $id_db_keluar . "',
-                                                '" . $year_int . "',
-                                                '" . $get_month . "',
-                                                '" . $total . "',
-                                                '02',
-                                                'Pengeluaran $ketbulan $year_int'
-                                            )");
-                                    $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
-                                    $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
-                                    $var_saldo = $fetch_saldo['nilai'];
-
-                                    $var_saldo = $var_saldo - $total;
-                                    $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
-                                                nilai = '" . $var_saldo . "'
-                                                WHERE id = '" . $year_int . "'
-                                            ");
+                                //Kondisi dimana input pengeluaran lebih besar dari saldo masjid
+                                if ($total > $saldo_masjid) {
+                                    echo '<script>Swal.fire({
+                                        title: "Dana Tidak Valid !",
+                                        text: "Kurangi Jumlah atau Perbaiki input",
+                                        icon: "error"
+                                      }).then(function() {
+                                        window.location = "pengeluaran.php";
+                                      });
+                                    </script>';
                                 } else {
-                                    $query_saldo_pengeluaran = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_keluar . "' ");
-                                    $fetch_saldo = mysqli_fetch_array($query_saldo_pengeluaran);
-                                    $saldo_peng = $fetch_saldo['nilai'];
+                                    //Input tanggal tidak lewat dari sekarang
+                                    if ($tanggal <= $tanggal_sekarang) {
+                                        $input_data = mysqli_query($conn, "INSERT INTO pengeluaran VALUE (
+                                            '" . $id . "', 
+                                            '" . $tanggal . "',
+                                            '" . $total . "',
+                                            '" . $detail . "' 
+                                            )");
 
-                                    $saldo_peng = $saldo_peng + $total;
-                                    $update_saldo_pengeluaran = mysqli_query($conn, "UPDATE grafikperbandingan SET
-                                        nilai = '" . $saldo_peng . "'
-                                        WHERE id = '" . $id_db_keluar . "'
-                                    ");
+                                        $input_laporan = mysqli_query($conn, "INSERT INTO laporankeuangan VALUE (
+                                                '" . $id . "', '" . $tanggal . "', '" . $detail . "', '" . $_SESSION['name'] . "', 'Pengeluaran', '" . $total . "'
+                                            )");
 
-                                    $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
-                                    $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
-                                    $var_saldo = $fetch_saldo['nilai'];
+                                        if ($ada_db_perbandingan == 0) {
+                                            $input_grafik_pengeluaran = mysqli_query($conn, "INSERT INTO grafikperbandingan VALUE (
+                                                    '" . $id_db_keluar . "',
+                                                    '" . $year_int . "',
+                                                    '" . $get_month . "',
+                                                    '" . $total . "',
+                                                    '02',
+                                                    'Pengeluaran $ketbulan $year_int'
+                                                )");
+                                            $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
+                                            $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
+                                            $var_saldo = $fetch_saldo['nilai'];
 
-                                    $var_saldo = $var_saldo - $total;
-                                    $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
-                                                nilai = '" . $var_saldo . "'
-                                                WHERE id = '" . $year_int . "'
-                                            ");
+                                            $var_saldo = $var_saldo - $total;
+                                            $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                                    nilai = '" . $var_saldo . "'
+                                                    WHERE id = '" . $year_int . "'
+                                                ");
+                                        } else {
+                                            $query_saldo_pengeluaran = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_keluar . "' ");
+                                            $fetch_saldo = mysqli_fetch_array($query_saldo_pengeluaran);
+                                            $saldo_peng = $fetch_saldo['nilai'];
+
+                                            $saldo_peng = $saldo_peng + $total;
+                                            $update_saldo_pengeluaran = mysqli_query($conn, "UPDATE grafikperbandingan SET
+                                            nilai = '" . $saldo_peng . "'
+                                            WHERE id = '" . $id_db_keluar . "'
+                                        ");
+
+                                            $ambil_saldo_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun ='" . $year_int . "' AND jenis = '03' ");
+                                            $fetch_saldo = mysqli_fetch_array($ambil_saldo_perbandingan);
+                                            $var_saldo = $fetch_saldo['nilai'];
+
+                                            $var_saldo = $var_saldo - $total;
+                                            $update_saldo_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                                    nilai = '" . $var_saldo . "'
+                                                    WHERE id = '" . $year_int . "'
+                                                ");
+                                        }
+                                    } else {
+                                        echo '<script>Swal.fire({
+                                            title: "Tanggal Tidak Valid !",
+                                            text: "Tanggal tidak boleh lewat dari sekarang",
+                                            icon: "error"
+                                          }).then(function() {
+                                            window.location = "pengeluaran.php";
+                                          });
+                                        </script>';
+                                    }
                                 }
                             }
                             ?>

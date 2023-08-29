@@ -9,6 +9,11 @@ if ($_SESSION['role_login'] == 'Sekretaris') {
     echo '<script>window.location="logout.php"</script>';
 }
 
+$query_saldo = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE jenis = '03' ");
+$fetch_saldo = mysqli_fetch_array($query_saldo);
+$saldo_masjid = $fetch_saldo['nilai'];
+
+$tanggal_sekarang = date('Y-m-d');
 
 $query_data = mysqli_query($conn, "SELECT * FROM pengeluaran WHERE id = '" . $_GET['id'] . "' ");
 if (mysqli_num_rows($query_data) == 0) {
@@ -44,7 +49,7 @@ $tanggal = $format_tanggal->format('m/d/Y');
 <body>
     <!--------------------------------------------ADMIN-------------------------------------------------------->
     <?php
-    if ($_SESSION['role_login'] == 'bendahara') {
+    if ($_SESSION['role_login'] == 'Bendahara') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -339,49 +344,69 @@ $tanggal = $format_tanggal->format('m/d/Y');
                     $id_db = $get_year . $get_month . '02';
                     $id_db_keluar = intval($id_db);
 
-                    $update_pengeluaran = mysqli_query($conn, "UPDATE pengeluaran SET 
-                        tanggal = '" . $tanggal_baru . "',
-                        jumlah = '" . $jumlah . "',
-                        keterangan = '" . $keterangan . "'
-                        WHERE id = '" . $_GET['id'] . "'
-                    ");
-
-                    $update_laporan = mysqli_query($conn, "UPDATE laporankeuangan SET
-                        nilai = '" . $jumlah . "'
-                        WHERE idLaporan = '" . $_GET['id'] . "'
-                    ");
-
-                    $query_perbandingan_keluar = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_keluar . "' ");
-                    $fetch_keluar = mysqli_fetch_array($query_perbandingan_keluar);
-                    $nilai_keluar = $fetch_keluar['nilai'];
-
-                    $nilai_keluar_akhir = $nilai_keluar - $nilai_temp;
-                    $update_perbandingan_keluar = mysqli_query($conn, "UPDATE grafikperbandingan SET
-                        nilai = '" . $nilai_keluar_akhir . "'
-                        WHERE id = '" . $id_db_keluar . "'
-                    ");
-
-                    $query_perbandingan_saldo = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $year_int . "' ");
-                    $fetch_saldo = mysqli_fetch_array($query_perbandingan_saldo);
-                    $nilai_saldo = $fetch_saldo['nilai'];
-
-                    $nilai_saldo_akhir = $nilai_saldo + $nilai_temp;
-                    $update_perbandingan_saldo = mysqli_query($conn, "UPDATE grafikperbandingan SET 
-                        nilai = '" . $nilai_saldo_akhir . "'
-                        WHERE id = '" . $year_int . "'
-                    ");
-
-                    if ($update_pengeluaran) {
+                    if ($jumlah > $saldo_masjid) {
                         echo '<script>Swal.fire({
-                            title: "Berhasil Ubah Pengeluaran",
-                            text: "Klik OK Untuk Lanjut",
-                            icon: "success"
-                          }).then(function() {
-                            window.location = "pengeluaran.php";
+                            title: "Dana Tidak Valid !",
+                            text: "Kurangi Jumlah atau Perbaiki input",
+                            icon: "error"
                           });
                         </script>';
                     } else {
-                        echo 'gagal' . mysqli_error($conn);
+                        //Input tanggal tidak lewat dari sekarang
+                        if ($tanggal_baru <= $tanggal_sekarang) {
+
+                            $update_pengeluaran = mysqli_query($conn, "UPDATE pengeluaran SET 
+                                tanggal = '" . $tanggal_baru . "',
+                                jumlah = '" . $jumlah . "',
+                                keterangan = '" . $keterangan . "'
+                                WHERE id = '" . $_GET['id'] . "'
+                            ");
+
+                            $update_laporan = mysqli_query($conn, "UPDATE laporankeuangan SET
+                                nilai = '" . $jumlah . "'
+                                WHERE idLaporan = '" . $_GET['id'] . "'
+                            ");
+
+                            $query_perbandingan_keluar = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_keluar . "' ");
+                            $fetch_keluar = mysqli_fetch_array($query_perbandingan_keluar);
+                            $nilai_keluar = $fetch_keluar['nilai'];
+
+                            $nilai_keluar_akhir = $nilai_keluar - $nilai_temp;
+                            $update_perbandingan_keluar = mysqli_query($conn, "UPDATE grafikperbandingan SET
+                                nilai = '" . $nilai_keluar_akhir . "'
+                                WHERE id = '" . $id_db_keluar . "'
+                            ");
+
+                            $query_perbandingan_saldo = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $year_int . "' ");
+                            $fetch_saldo = mysqli_fetch_array($query_perbandingan_saldo);
+                            $nilai_saldo = $fetch_saldo['nilai'];
+
+                            $nilai_saldo_akhir = $nilai_saldo + $nilai_temp;
+                            $update_perbandingan_saldo = mysqli_query($conn, "UPDATE grafikperbandingan SET 
+                                nilai = '" . $nilai_saldo_akhir . "'
+                                WHERE id = '" . $year_int . "'
+                            ");
+
+                            if ($update_pengeluaran) {
+                                echo '<script>Swal.fire({
+                                    title: "Berhasil Ubah Pengeluaran",
+                                    text: "Klik OK Untuk Lanjut",
+                                    icon: "success"
+                                }).then(function() {
+                                    window.location = "pengeluaran.php";
+                                });
+                                </script>';
+                            } else {
+                                echo 'gagal' . mysqli_error($conn);
+                            }
+                        } else {
+                            echo '<script>Swal.fire({
+                                title: "Tanggal Tidak Valid ! !",
+                                text: "Tanggal tidak boleh lewat dari sekarang",
+                                icon: "error"
+                              });
+                            </script>';
+                        }
                     }
                 }
                 ?>
