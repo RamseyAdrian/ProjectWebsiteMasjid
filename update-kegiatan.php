@@ -34,12 +34,38 @@ $tanggal = $format_tanggal->format('m/d/Y');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .save-btn {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 3em;
+            align-items: center;
+            gap: 5em;
+        }
+
+        .save-btn input {
+            width: 200px;
+        }
+
+        .mini-nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            margin-top: 2em;
+        }
+
+        .mini-nav .nav-part {
+            display: flex;
+            flex-direction: row;
+            gap: 1em;
+        }
+    </style>
 </head>
 
 <body>
     <!--------------------------------------------ADMIN-------------------------------------------------------->
     <?php
-    if ($_SESSION['role_login'] == 'admin') {
+    if ($_SESSION['role_login'] != 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -154,7 +180,7 @@ $tanggal = $format_tanggal->format('m/d/Y');
         <!--------------------------------------------MASTERADMIN-------------------------------------------------------->
 
     <?php
-    } else if ($_SESSION['role_login'] == 'masteradmin') {
+    } else if ($_SESSION['role_login'] == 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -284,94 +310,108 @@ $tanggal = $format_tanggal->format('m/d/Y');
                 <h2 class="text-4xl font-bold dark:text-white">Ubah Kegiatan</h2>
             </div>
             <br><br>
-            <div class=" h-48 mb-4 rounded">
-                <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
-                    <div>
-                        <label for="namakegiatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kegiatan</label>
-                        <input name="namakegiatan" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan Nama Kegiatan" value="<?php echo $fetch_data['namakegiatan'] ?>" required>
-                    </div>
-                    <div>
-                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
-                        <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                </svg>
-                            </div>
-                            <input datepicker datepicker-autohide type="text" name="tanggal" class="bg-gray-50 border border-gray-300 text-gray-900 
-                            text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 
-                            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal" value="<?php echo $tanggal ?>" required>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penanggung Jawab</label>
-                        <input name="penanggungjawab" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 
-                                         block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white
-                                         dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personel Penanggung Jawab Kegiatan" value="<?php echo $fetch_data['penanggungjawab'] ?>" required>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ubah Gambar (Optional)</label>
-                        <img src="kegiatan/<?php echo $fetch_data['gambar'] ?>" width="200px"><br>
-                        <input type="hidden" name="addpic" value="<?php echo $fetch_data['gambar'] ?>">
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
+
+            <div class="h-48 mb-4 rounded">
+                <section class="bg-white dark:bg-gray-900">
+                    <div class="">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <div id="form-part">
+                                <div class="left-part">
+                                    <div class="">
+                                        <label for="activity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Nama Kegiatan</label>
+                                        <input type="text" name="activity_name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                                    focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan Nama Kegiatan" value="<?php echo $fetch_data['namakegiatan'] ?>" required>
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Tanggal</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                </svg>
+                                            </div>
+                                            <input datepicker datepicker-autohide type="text" name="date" class="bg-gray-50 border border-gray-300
+                                             text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 
+                                              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
+                                              dark:focus:border-blue-500" placeholder="Pilih Tanggal" value="<?php echo $tanggal ?>" required>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Ubah Gambar</label>
+                                        <img src="kegiatan/<?php echo $fetch_data['gambar'] ?>" width="200px"><br>
+                                        <input type="hidden" name="addpic" value="<?php echo $fetch_data['gambar'] ?>">
+                                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
                                      cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
-                                     dark:border-gray-600 dark:placeholder-gray-400" name="addpic" id="file_input" type="file" value="kegiatan/<?php echo $fetch_data['gambar'] ?>">
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ubah File (Optional)</label>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">File sebelumnya : <a class="text-red-600" href="dokumen/<?php echo $fetch_data['dokumen'] ?>"><?php echo $fetch_data['dokumen'] ?></a></label>
-                        <br>
-                        <input type="hidden" name="addfile" value="<?php echo $fetch_data['dokumen'] ?>">
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
+                                     dark:border-gray-600 dark:placeholder-gray-400" name="images[]" id="file_input" type="file" multiple>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Upload File</label>
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">File sebelumnya : <a class="text-red-600" href="dokumen/<?php echo $fetch_data['dokumen'] ?>"><?php echo $fetch_data['dokumen'] ?></a></label>
+                                        <input type="hidden" name="addfile" value="<?php echo $fetch_data['dokumen'] ?>">
+                                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg
                                      cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
                                      dark:border-gray-600 dark:placeholder-gray-400" name="addfile" id="file_input" type="file">
-                    </div>
-                    <div>
-                        <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
-                        <textarea id="message" name="deskripsi" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
-                                    rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
-                                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tuliskan info tambahan"><?php echo $fetch_data['deskripsi'] ?></textarea>
-                    </div>
-                    <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    </div>
+                                </div>
+                                <div class="right-part">
+                                    <div>
+                                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Keterangan</label>
+                                        <textarea id="message" name="deskripsi" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300
+                                         focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                                          dark:focus:border-blue-500" placeholder="Masukkan Keterangan Tambahan"><?php echo $fetch_data['deskripsi'] ?></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" style="font-weight: bolder;">Penanggung Jawab</label>
+                                        <input name="organizer" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personel Penanggung Jawab Kegiatan" value="<?php echo $fetch_data['penanggungjawab'] ?>" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="save-btn">
+                                <button id="cancel" onclick="cancel_form()">Cancel</button>
+                                <input type="submit" name="submit" value="Simpan" class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            </div>
+                        </form>
+                        <script>
+                            function cancel_form() {
+                                window.location.href = 'kegiatan.php';
+                            }
+                        </script>
+                        <?php
+                        if (isset($_POST['submit'])) {
+                            $namakegiatan = addslashes($_POST['activity_name']);
+                            $format_tanggal2 = date_create_from_format('m/d/Y', $_POST['date']);
+                            $tanggal_baru = $format_tanggal2->format('Y-m-d');
+                            $pjawab = $_POST['organizer'];
+                            $deskripsi = addslashes($_POST['deskripsi']);
 
-                    <br><br>
-                </form>
-                <?php
-                if (isset($_POST['submit'])) {
-                    $namakegiatan = addslashes($_POST['namakegiatan']);
-                    $format_tanggal2 = date_create_from_format('m/d/Y', $_POST['tanggal']);
-                    $tanggal_baru = $format_tanggal2->format('Y-m-d');
-                    $pjawab = $_POST['penanggungjawab'];
-                    $deskripsi = addslashes($_POST['deskripsi']);
+                            //Menampung file yang diupload
+                            $filename = $_FILES['addfile']['name'];
+                            $tmp_file = $_FILES['addfile']['tmp_name'];
 
-                    //Menampung file yang diupload
-                    $filename = $_FILES['addfile']['name'];
-                    $tmp_file = $_FILES['addfile']['tmp_name'];
+                            $picname = $_FILES['addpic']['name'];
+                            $tmp_pic = $_FILES['addpic']['tmp_name'];
 
-                    $picname = $_FILES['addpic']['name'];
-                    $tmp_pic = $_FILES['addpic']['tmp_name'];
+                            $type1 = explode('.', $filename);
+                            $type2 = $type1[1];
 
-                    $type1 = explode('.', $filename);
-                    $type2 = $type1[1];
+                            $type3 = explode('.', $picname);
+                            $type4 = $type3[1];
 
-                    $type3 = explode('.', $picname);
-                    $type4 = $type3[1];
+                            //rename file dokumen
+                            $newfile = 'dokumen' . $namakegiatan . time() . '.' . $type2;
 
-                    //rename file dokumen
-                    $newfile = 'dokumen' . $namakegiatan . time() . '.' . $type2;
+                            //rename file data gambar
+                            $newpic = 'gambar' . $namakegiatan . time() . '.' . $type4;
 
-                    //rename file data gambar
-                    $newpic = 'gambar' . $namakegiatan . time() . '.' . $type4;
+                            //menampung data format file yang diizinkan
+                            $tipe_gambar_diizinkan = array('jpg', 'jpeg', 'png', 'gif');
 
-                    //menampung data format file yang diizinkan
-                    $tipe_gambar_diizinkan = array('jpg', 'jpeg', 'png', 'gif');
-
-                    if (!in_array($type4, $tipe_gambar_diizinkan)) {
-                        $update_kegiatan = mysqli_query($conn, "UPDATE informasikegiatan SET 
+                            if (!in_array($type4, $tipe_gambar_diizinkan)) {
+                                $update_kegiatan = mysqli_query($conn, "UPDATE informasikegiatan SET 
                         namakegiatan = '" . $namakegiatan . "',
                         tanggal = '" . $tanggal_baru . "',
                         deskripsi = '" . $deskripsi . "',
@@ -379,8 +419,8 @@ $tanggal = $format_tanggal->format('m/d/Y');
                         WHERE id_kegiatan = '" . $_GET['id'] . "'
                         ");
 
-                        if ($update_kegiatan) {
-                            echo '<script>Swal.fire({
+                                if ($update_kegiatan) {
+                                    echo '<script>Swal.fire({
                                 title: "Berhasil Ubah Kegiatan",
                                 text: "Klik OK Untuk Lanjut",
                                 icon : "success"
@@ -388,14 +428,14 @@ $tanggal = $format_tanggal->format('m/d/Y');
                                 window.location = "kegiatan.php";
                            });
                            </script>';
-                        } else {
-                            echo 'gagal' . mysqli_error($conn);
-                        }
-                    } else {
-                        //Memasukkan data gambar dan dokumen kedalam folder yang ditentukan
-                        move_uploaded_file($tmp_pic, './kegiatan/' . $newpic);
-                        move_uploaded_file($tmp_file, './dokumen/' . $newfile);
-                        $update_kegiatan = mysqli_query($conn, "UPDATE informasikegiatan SET
+                                } else {
+                                    echo 'gagal' . mysqli_error($conn);
+                                }
+                            } else {
+                                //Memasukkan data gambar dan dokumen kedalam folder yang ditentukan
+                                move_uploaded_file($tmp_pic, './kegiatan/' . $newpic);
+                                move_uploaded_file($tmp_file, './dokumen/' . $newfile);
+                                $update_kegiatan = mysqli_query($conn, "UPDATE informasikegiatan SET
                         namakegiatan = '" . $namakegiatan . "',
                         tanggal = '" . $tanggal_baru . "',
                         deskripsi = '" . $deskripsi . "',
@@ -405,8 +445,8 @@ $tanggal = $format_tanggal->format('m/d/Y');
                         WHERE id_kegiatan = '" . $_GET['id'] . "'
                         ");
 
-                        if ($update_kegiatan) {
-                            echo '<script>Swal.fire({
+                                if ($update_kegiatan) {
+                                    echo '<script>Swal.fire({
                                 title: "Berhasil Ubah Kegiatan",
                                 text: "Klik OK Untuk Lanjut",
                                 icon : "success"
@@ -414,12 +454,16 @@ $tanggal = $format_tanggal->format('m/d/Y');
                                 window.location = "kegiatan.php";
                            });
                            </script>';
-                        } else {
-                            echo 'gagal' . mysqli_error($conn);
+                                } else {
+                                    echo 'gagal' . mysqli_error($conn);
+                                }
+                            }
                         }
-                    }
-                }
-                ?>
+                        ?>
+                    </div>
+                </section>
+                <br><br>
+
             </div>
         </div>
     </div>

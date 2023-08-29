@@ -38,7 +38,7 @@ $_SESSION['saldo'] = 0;
 <body>
     <!--------------------------------------------ADMIN-------------------------------------------------------->
     <?php
-    if ($_SESSION['role_login'] == 'admin') {
+    if ($_SESSION['role_login'] != 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -152,7 +152,7 @@ $_SESSION['saldo'] = 0;
         </aside>
         <!--------------------------------------------MASTERADMIN-------------------------------------------------------->
     <?php
-    } else if ($_SESSION['role_login'] == 'masteradmin') {
+    } else if ($_SESSION['role_login'] == 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -372,7 +372,7 @@ $_SESSION['saldo'] = 0;
                         </thead>
                         <tbody>
                             <?php
-                            $query_data = mysqli_query($conn, "SELECT * FROM laporankeuangan WHERE tanggal BETWEEN '" . $mulai . "' AND '" . $hingga . "' ORDER BY tanggal LIMIT 10");
+                            $query_data = mysqli_query($conn, "SELECT * FROM laporankeuangan WHERE tanggal BETWEEN '" . $mulai . "' AND '" . $hingga . "' ORDER BY tanggal");
                             if (mysqli_num_rows($query_data) > 0) {
                                 while ($fetch_data = mysqli_fetch_array($query_data)) {
                             ?>

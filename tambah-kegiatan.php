@@ -57,7 +57,7 @@ if ($_SESSION['status_login'] != true) {
 <body>
     <!--------------------------------------------ADMIN-------------------------------------------------------->
     <?php
-    if ($_SESSION['role_login'] == 'admin') {
+    if ($_SESSION['role_login'] != 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -171,7 +171,7 @@ if ($_SESSION['status_login'] != true) {
         </aside>
         <!--------------------------------------------MASTERADMIN-------------------------------------------------------->
     <?php
-    } else if ($_SESSION['role_login'] == 'masteradmin') {
+    } else if ($_SESSION['role_login'] == 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -313,7 +313,7 @@ if ($_SESSION['status_login'] != true) {
                 </div>
             </div>
             <br><br>
-            <div class=" h-48 mb-4 rounded">
+            <div class="h-48 mb-4 rounded">
                 <section class="bg-white dark:bg-gray-900">
                     <div class="">
                         <form action="" method="POST" enctype="multipart/form-data">
@@ -378,68 +378,6 @@ if ($_SESSION['status_login'] != true) {
                     }
                 </script>
 
-
-                <!-- <?php
-                        if (isset($_POST['submit'])) {
-                            //Menampung data dari form 
-                            $id = rand();
-                            $namakegiatan = addslashes($_POST['activity_name']);
-                            //mengubah format tanggal supaya bisa diterima MySQL
-                            $format_tanggal = date_create_from_format('m/d/Y', $_POST['date']);
-                            $tanggal = $format_tanggal->format('Y-m-d');
-                            $pjawab = $_POST['organizer'];
-                            $deskripsi = $_POST['message'];
-
-                            //Menampung file yang diupload
-                            $filename = $_FILES['addfile']['name'];
-                            $tmp_file = $_FILES['addfile']['tmp_name'];
-
-                            $picname = $_FILES['addpic']['name'];
-                            $tmp_pic = $_FILES['addpic']['tmp_name'];
-
-                            $type1 = explode('.', $filename);
-                            $type2 = $type1[1];
-
-                            $type3 = explode('.', $picname);
-                            $type4 = $type3[1];
-
-                            //rename file dokumen
-                            $newfile = 'dokumen' . $id . '.' . $type2;
-
-                            //rename file data gambar
-                            $newpic = 'gambar' . $id . '.' . $type4;
-
-                            //menampung data format file yang diizinkan
-                            $tipe_gambar_diizinkan = array('jpg', 'jpeg', 'png', 'gif');
-
-                            if (!in_array($type4, $tipe_gambar_diizinkan)) {
-                                echo '<script>alert("Format file tidak diizinkan")</script>';
-                            } else {
-                                //Memasukkan data gambar dan dokumen kedalam folder yang ditentukan
-                                move_uploaded_file($tmp_pic, './kegiatan/' . $newpic);
-                                move_uploaded_file($tmp_file, './dokumen/' . $newfile);
-                                $input_data = mysqli_query($conn, "INSERT INTO informasikegiatan VALUE (
-                                        '" . $id . "',
-                                        '" . $namakegiatan . "',
-                                        '" . $tanggal . "',
-                                        '" . $newpic . "',
-                                        '" . $newfile . "',
-                                        '" . $deskripsi . "',
-                                        '" . $pjawab . "'
-                                    )");
-                                if ($input_data) {
-                                    echo '<script>Swal.fire({
-                                            title: "Berhasil Tambah Kegiatan",
-                                            text: "Klik OK Untuk Lanjut",
-                                            icon: "success"
-                                          }).then(function() {
-                                            window.location = "kegiatan.php";
-                                          });
-                                        </script>';
-                                }
-                            }
-                        }
-                        ?> -->
             </div>
 
             <?php

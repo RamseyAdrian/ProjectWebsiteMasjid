@@ -1,4 +1,8 @@
 <?php
+//Mencegah non-user akses page ini
+if ($_SESSION['status_login'] != true) {
+    echo '<script>window.location="login.php"</script>';
+}
 include 'db.php';
 
 if (isset($_GET['idpem'])) {

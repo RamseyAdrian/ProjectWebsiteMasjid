@@ -16,6 +16,26 @@ $query_saldo = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = 
 $fetch_saldo = mysqli_fetch_array($query_saldo);
 $saldo = $fetch_saldo['nilai'];
 $ket_saldo = $fetch_saldo['keterangan'];
+
+function bulan_indo($par)
+{
+    $bulan = array(
+        1 =>   'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+
+    return $bulan[(int)$par];
+}
 ?>
 
 <!DOCTYPE html>
@@ -78,19 +98,6 @@ $ket_saldo = $fetch_saldo['keterangan'];
                     <div class="text-part">
                         <h3>Pemasukkan Tahun <?php echo $get_year ?></h3>
                     </div>
-                    <!-- <div class="input-part">
-                        <form action="" method="POST">
-                            <select id="pilih-tahun" name="tahun" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option>Pilih Tahun</option>
-                                <option value="2023">2023</option>
-                            </select>
-                            <input type="submit" name="graph-masuk" class="w-full text-white bg-green-700 
-                            hover:bg-green-800 focus:ring-4 focus:outline-none 
-                            focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2
-                             text-center dark:bg-blue-600 dark:hover:bg-blue-700 
-                             dark:focus:ring-blue-800" value="Tampilkan">
-                        </form>
-                    </div> -->
                 </div>
                 <div class="graph">
                     <canvas id="bar-pemasukkan">
@@ -100,21 +107,8 @@ $ket_saldo = $fetch_saldo['keterangan'];
             <div class="perbandingan">
                 <div class="heading">
                     <div class="text-part">
-                        <h3>Perbandingan Keuangan Bulan <?php echo $get_month_string . " " . $get_year ?></h3>
+                        <h3>Perbandingan Keuangan Bulan <?php echo bulan_indo($get_month) . " " . $get_year ?></h3>
                     </div>
-                    <!-- <div class="input-part">
-                        <form action="" method="POST">
-                            <select id="pilih-bulan" name="tahun" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option>Pilih Bulan</option>
-                                <option value="2023">2023</option>
-                            </select>
-                            <input type="submit" name="graph-banding" class="w-full text-white bg-green-700 
-                            hover:bg-green-800 focus:ring-4 focus:outline-none 
-                            focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2
-                             text-center dark:bg-blue-600 dark:hover:bg-blue-700 
-                             dark:focus:ring-blue-800" value="Tampilkan">
-                        </form>
-                    </div> -->
                 </div>
                 <div class="graph">
                     <canvas id="bar-perbandingan"></canvas>

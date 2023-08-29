@@ -50,7 +50,7 @@ if ($_SESSION['status_login'] != true) {
 <body>
     <!--------------------------------------------ADMIN-------------------------------------------------------->
     <?php
-    if ($_SESSION['role_login'] == 'admin') {
+    if ($_SESSION['role_login'] != 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -164,7 +164,7 @@ if ($_SESSION['status_login'] != true) {
         </aside>
         <!--------------------------------------------MASTERADMIN-------------------------------------------------------->
     <?php
-    } else if ($_SESSION['role_login'] == 'masteradmin') {
+    } else if ($_SESSION['role_login'] == 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -359,7 +359,7 @@ if ($_SESSION['status_login'] != true) {
                                             <?php echo $fetch_data['penanggungjawab'] ?>
                                         </td>
                                         <td class="px-6 py-4">
-                                            <?php echo $fetch_data['dokumen'] ?>
+                                            <a href="dokumen/<?php echo $fetch_data['dokumen'] ?>"><?php echo $fetch_data['dokumen'] ?></a>
                                         </td>
                                         <td class="px-6 py-4 text-left">
                                             <a href="update-kegiatan.php?id=<?php echo $fetch_data['id_kegiatan'] ?>" class="action-btn">Edit</a>

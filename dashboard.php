@@ -7,6 +7,7 @@ if ($_SESSION['status_login'] != true) {
 }
 $get_year = date("Y");
 $get_month = date("m");
+$get_month_name = date("M");
 $month_str = strval($get_month);
 
 $query_bulan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' ");
@@ -19,6 +20,43 @@ $query_saldo = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = 
 $fetch_saldo = mysqli_fetch_array($query_saldo);
 $saldo = $fetch_saldo['nilai'];
 $ket_saldo = $fetch_saldo['keterangan'];
+
+$minggu_lalu = strtotime("-7 days");
+$seminggu_lalu = date("Y-m-d", $minggu_lalu);
+
+$sekarang = date("Y-m-d");
+
+$nilai_masuk = 0;
+$query_pemasukkan_seminggu = mysqli_query($conn, "SELECT * FROM pemasukkan WHERE tanggal BETWEEN '" . $seminggu_lalu . "' AND '" . $sekarang . "' ORDER BY tanggal ");
+while ($fetch_masuk = mysqli_fetch_array($query_pemasukkan_seminggu)) {
+   $nilai_masuk += $fetch_masuk['jumlah'];
+}
+
+$nilai_keluar = 0;
+$query_pengeluaran_seminggu = mysqli_query($conn, "SELECT * FROM pengeluaran WHERE tanggal BETWEEN '" . $seminggu_lalu . "' AND '" . $sekarang . "' ORDER BY tanggal ");
+while ($fetch_keluar = mysqli_fetch_array($query_pengeluaran_seminggu)) {
+   $nilai_keluar -= $fetch_keluar['jumlah'];
+}
+
+function bulan_indo($par)
+{
+   $bulan = array(
+      1 =>   'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember'
+   );
+
+   return $bulan[(int)$par];
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +82,7 @@ $ket_saldo = $fetch_saldo['keterangan'];
 <body>
    <!--------------------------------------------ADMIN-------------------------------------------------------->
    <?php
-   if ($_SESSION['role_login'] == 'admin') {
+   if ($_SESSION['role_login'] != 'admin') {
    ?>
       <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
          <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -158,7 +196,7 @@ $ket_saldo = $fetch_saldo['keterangan'];
       </aside>
       <!--------------------------------------------MASTERADMIN-------------------------------------------------------->
    <?php
-   } else if ($_SESSION['role_login'] == 'masteradmin') {
+   } else if ($_SESSION['role_login'] == 'admin') {
    ?>
       <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
          <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -294,7 +332,7 @@ $ket_saldo = $fetch_saldo['keterangan'];
                   <h1>Pemasukkan Mingguan</h1>
                </div>
                <div class="total">
-                  <p id="income">Rp500.000,00</p>
+                  <p id="income">Rp<?php echo number_format($nilai_masuk, 2, ',', '.') ?></p>
                </div>
             </div>
             <div class="report-card">
@@ -302,7 +340,7 @@ $ket_saldo = $fetch_saldo['keterangan'];
                   <h1>Pengeluaran Mingguan</h1>
                </div>
                <div class="total">
-                  <p id="outcome">- Rp200.000,00</p>
+                  <p id="outcome">Rp<?php echo number_format($nilai_keluar, 2, ',', '.') ?></p>
                </div>
             </div>
             <div class="report-card">
@@ -310,7 +348,7 @@ $ket_saldo = $fetch_saldo['keterangan'];
                   <h1>Saldo</h1>
                </div>
                <div class="total">
-                  <p id="balance">Rp300.000,00</p>
+                  <p id="balance">Rp<?php echo number_format($saldo, 2, ',', '.')  ?></p>
                </div>
             </div>
          </div>
@@ -331,7 +369,7 @@ $ket_saldo = $fetch_saldo['keterangan'];
                <div class="perbandingan">
                   <div class="heading">
                      <div class="text-part">
-                        <h3>Perbandingan Keuangan</h3>
+                        <h3>Perbandingan Keuangan <?php echo bulan_indo($get_month) . " " . $get_year ?></h3>
                      </div>
 
                   </div>

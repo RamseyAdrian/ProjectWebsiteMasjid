@@ -46,13 +46,24 @@
             $user = mysqli_real_escape_string($conn, $_POST['username']);
             $pass = mysqli_real_escape_string($conn, $_POST['password']);
 
-            $cek_admin = mysqli_query($conn, "SELECT * FROM admin WHERE username = '" . $user . "' AND password = '" . $pass . "' ");
+            // $cek_admin = mysqli_query($conn, "SELECT * FROM admin WHERE username = '" . $user . "' AND password = '" . $pass . "' ");
+            $cek_bendahara = mysqli_query($conn, "SELECT * FROM `admin` WHERE username = '" . $user . "' AND password = '" . $pass . "' AND position = 'Bendahara' ");
+            $cek_sekretaris = mysqli_query($conn, "SELECT * FROM `admin` WHERE username = '" . $user . "' AND password = '" . $pass . "' AND position = 'Sekretaris' ");
             $cek_master = mysqli_query($conn, "SELECT * FROM masteradmin WHERE username = '" . $user . "' AND password = '" . $pass . "' ");
 
-            if (mysqli_num_rows($cek_admin) > 0) {
-                $fetch_admin = mysqli_fetch_object($cek_admin);
+            if (mysqli_num_rows($cek_bendahara) > 0) {
+                $fetch_admin = mysqli_fetch_object($cek_bendahara);
                 $_SESSION['status_login'] = true;
-                $_SESSION['role_login'] = 'admin';
+                $_SESSION['role_login'] = 'Bendahara';
+                $_SESSION['fetch_data'] = $fetch_admin;
+                $_SESSION['id'] = $fetch_admin->id;
+                $_SESSION['name'] = $fetch_admin->name;
+                echo '<script>window.location="dashboard.php"</script>';
+                unset($_SESSION[$pass]);
+            } else if (mysqli_num_rows($cek_sekretaris) > 0) {
+                $fetch_admin = mysqli_fetch_object($cek_sekretaris);
+                $_SESSION['status_login'] = true;
+                $_SESSION['role_login'] = 'Sekretaris';
                 $_SESSION['fetch_data'] = $fetch_admin;
                 $_SESSION['id'] = $fetch_admin->id;
                 $_SESSION['name'] = $fetch_admin->name;
@@ -61,7 +72,7 @@
             } else if (mysqli_num_rows($cek_master) > 0) {
                 $fetch_master = mysqli_fetch_object($cek_master);
                 $_SESSION['status_login'] = true;
-                $_SESSION['role_login'] = 'masteradmin';
+                $_SESSION['role_login'] = 'admin';
                 $_SESSION['fetch_data'] = $fetch_master;
                 $_SESSION['id'] = $fetch_master->id;
                 $_SESSION['name'] = $fetch_master->name;

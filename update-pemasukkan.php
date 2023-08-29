@@ -11,7 +11,6 @@ if (mysqli_num_rows($query_data) == 0) {
     echo '<script>window.location = "pemasukkan.php"</script>';
 }
 $fetch_data = mysqli_fetch_array($query_data);
-$nilai_awal = $fetch_data['jumlah'];
 $format_tanggal = date_create_from_format('Y-m-d', $fetch_data['tanggal']);
 $tanggal = $format_tanggal->format('m/d/Y');
 ?>
@@ -35,12 +34,21 @@ $tanggal = $format_tanggal->format('m/d/Y');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        #center-div {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
-    <!--------------------------------------------ADMIN-------------------------------------------------------->
+    <!--------------------------------------------PENGURUS DKM-------------------------------------------------------->
     <?php
-    if ($_SESSION['role_login'] == 'admin') {
+    if ($_SESSION['role_login'] == 'bendahara') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -107,12 +115,12 @@ $tanggal = $format_tanggal->format('m/d/Y');
                         </a>
                     </li>
                     <li>
-                        <a href="pemasukkan.php" class="flex items-center p-2 text-gray-700 rounded-lg bg-gray-100 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-5 h-5 text-gray-500 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                        <a href="pemasukkan.php" class="flex items-center p-2 text-green-700 rounded-lg bg-gray-100 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-green-500 dark:text-white group-hover:text-green-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
                                 <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
                                 <path d="M14.067 0H7v5a2 2 0 0 1-2 2H0v4h7.414l-1.06-1.061a1 1 0 1 1 1.414-1.414l2.768 2.768a1 1 0 0 1 0 1.414l-2.768 2.768a1 1 0 0 1-1.414-1.414L7.414 13H0v5a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.933-2Z" />
                             </svg>
-                            <span class="flex-1 ml-3 whitespace-nowrap">Pemasukkan</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Pemasukan</span>
                         </a>
                     </li>
                     <li>
@@ -152,10 +160,9 @@ $tanggal = $format_tanggal->format('m/d/Y');
                     </ul>
             </div>
         </aside>
-        <!--------------------------------------------MASTERADMIN-------------------------------------------------------->
-
+        <!--------------------------------------------ADMIN-------------------------------------------------------->
     <?php
-    } else if ($_SESSION['role_login'] == 'masteradmin') {
+    } else if ($_SESSION['role_login'] == 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -227,7 +234,7 @@ $tanggal = $format_tanggal->format('m/d/Y');
                                 <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
                                 <path d="M14.067 0H7v5a2 2 0 0 1-2 2H0v4h7.414l-1.06-1.061a1 1 0 1 1 1.414-1.414l2.768 2.768a1 1 0 0 1 0 1.414l-2.768 2.768a1 1 0 0 1-1.414-1.414L7.414 13H0v5a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.933-2Z" />
                             </svg>
-                            <span class="flex-1 ml-3 whitespace-nowrap">Pemasukkan</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Pemasukan</span>
                         </a>
                     </li>
                     <li>
@@ -282,105 +289,61 @@ $tanggal = $format_tanggal->format('m/d/Y');
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="grid grid-cols-3 gap-4 mb-4">
-                <h2 class="text-4xl font-bold dark:text-white">Ubah Pemasukkan</h2>
+                <h2 class="text-4xl font-bold dark:text-white">Edit Pemasukan</h2>
             </div>
             <br><br>
-            <div class=" h-48 mb-4 rounded">
-                <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
-                    <div>
-                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
-                        <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                </svg>
+
+
+            <div id="center-div">
+                <div class="grid gap-6 mb-6">
+                    <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+                        <div>
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input datepicker datepicker-autohide type="text" name="tanggal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
+                            block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal" value="<?php echo $tanggal ?>" required>
                             </div>
-                            <input type="text" name="tanggal" class="bg-gray-50 border border-gray-300 
-                            text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  
-                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                            dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pilih Tanggal" value="<?php echo $tanggal ?>" readonly>
                         </div>
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total</label>
-                        <input name="total" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-                                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personel Penanggung Jawab Kegiatan" value="<?php echo $fetch_data['jumlah'] ?>" required>
-                    </div>
-                    <div>
-                        <label for="dana" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sumber Dana</label>
-                        <select id="dana" name="dana" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="<?php echo $fetch_data['sumber'] ?>"><?php echo $fetch_data['sumber'] ?></option>
-                            <option value="Infaq">Infaq</option>
-                            <option value="Sodaqqoh">Sodaqqoh</option>
-                            <option value="Zakat">Zakat</option>
-                        </select>
-                    </div>
-                    <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total</label>
+                            <input name="total" id="item" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
+                        block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Personel Penanggung Jawab Kegiatan" value="<?php echo $fetch_data['jumlah'] ?>" required>
+                        </div>
+                        <div>
+                            <label for="dana" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sumber Dana</label>
+                            <select id="dana" name="dana" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
+                        block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="<?php echo $fetch_data['sumber'] ?>"><?php echo $fetch_data['sumber'] ?></option>
+                                <option value="Infaq">Infaq</option>
+                                <option value="Sodaqqoh">Sodaqqoh</option>
+                                <option value="Zakat">Zakat</option>
+                            </select>
+                        </div>
+                        <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 
-                    <br><br>
-                </form>
-                <?php
-                if (isset($_POST['submit'])) {
-                    $format_tanggal2 = date_create_from_format('m/d/Y', $_POST['tanggal']);
-                    $tanggal_baru = $format_tanggal2->format('Y-m-d');
-                    $jumlah = $_POST['total'];
-                    $sumber = $_POST['dana'];
+                        <br><br>
+                    </form>
+                    <?php
+                    if (isset($_POST['submit'])) {
+                        $format_tanggal2 = date_create_from_format('m/d/Y', $_POST['tanggal']);
+                        $tanggal_baru = $format_tanggal2->format('Y-m-d');
+                        $jumlah = $_POST['total'];
+                        $sumber = $_POST['dana'];
 
-                    $nilai_temp = $nilai_awal - $jumlah;
-
-                    $tahun = date('Y', strtotime($tanggal_baru));
-                    $bulan = date('m', strtotime($tanggal_baru));
-                    $tahun_int = intval($tahun);
-                    $id_db_graf_str = $tahun . $bulan . '01';
-                    $id_db_graf_int = intval($id_db_graf_str);
-                    $id_db_grafpem_str = $tahun . $bulan;
-                    $id_db_grafpem_int = intval($id_db_grafpem_str);
-
-                    $update_pemasukkan = mysqli_query($conn, "UPDATE pemasukkan SET 
+                        $update_pemasukkan = mysqli_query($conn, "UPDATE pemasukkan SET 
                         tanggal = '" . $tanggal_baru . "',
                         jumlah = '" . $jumlah . "',
                         sumber = '" . $sumber . "'
                         WHERE id = '" . $_GET['id'] . "'
                     ");
 
-                    $update_laporan = mysqli_query($conn, "UPDATE laporankeuangan SET 
-                        nilai = '" . $jumlah . "'
-                        WHERE idLaporan = '" . $_GET['id'] . "'
-                    ");
-
-                    $query_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $id_db_graf_int . "' ");
-                    $fetch_perbandingan = mysqli_fetch_array($query_perbandingan);
-                    $nilai_perbandingan = $fetch_perbandingan['nilai'];
-
-                    $nilai_akhir = $nilai_perbandingan - $nilai_temp;
-                    $update_perbandingan = mysqli_query($conn, "UPDATE grafikperbandingan SET
-                        nilai = '" . $nilai_akhir . "'
-                        WHERE id = '" . $id_db_graf_int . "'
-                    ");
-
-                    $query_perbandingan2 = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE id = '" . $tahun_int . "' ");
-                    $fetch_perbandingan2 = mysqli_fetch_array($query_perbandingan2);
-                    $nilai_perbandingan2 = $fetch_perbandingan2['nilai'];
-
-                    $saldo_tahunan = $nilai_perbandingan2 - $nilai_temp;
-                    $update_perbandingan2 = mysqli_query($conn, "UPDATE grafikperbandingan SET 
-                        nilai = '" . $saldo_tahunan . "'
-                        WHERE id = '" . $tahun_int . "'
-                    ");
-
-                    $query_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE id = '" . $id_db_grafpem_int . "' ");
-                    $fetch_pemasukkan = mysqli_fetch_array($query_pemasukkan);
-                    $nilai_pemasukkan = $fetch_pemasukkan['nilai'];
-
-                    $nilai_akhir2 = $nilai_pemasukkan - $nilai_temp;
-                    $update_pemasukkan = mysqli_query($conn, "UPDATE grafikpemasukan SET 
-                        nilai = '" . $nilai_akhir2 . "'
-                        WHERE id = '" . $id_db_grafpem_int . "'
-                    ");
-
-                    if ($update_pemasukkan) {
-                        echo '<script>Swal.fire({
+                        if ($update_pemasukkan) {
+                            echo '<script>Swal.fire({
                             title: "Berhasil Ubah Pemasukkan",
                             text: "Klik OK Untuk Lanjut",
                             icon: "success"
@@ -388,14 +351,14 @@ $tanggal = $format_tanggal->format('m/d/Y');
                             window.location = "pemasukkan.php";
                           });
                         </script>';
-                    } else {
-                        echo 'gagal' . mysqli_error($conn);
+                        } else {
+                            echo 'gagal' . mysqli_error($conn);
+                        }
                     }
-                }
-                ?>
+                    ?>
+                </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

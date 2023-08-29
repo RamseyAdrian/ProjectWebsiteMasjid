@@ -11,13 +11,6 @@ if ($_SESSION['status_login'] != true) {
 // $ketbulan = date("M");
 // $month_str = strval($get_month);
 // $year_str = strval($get_year);
-
-// $cek_db_pemasukkan = mysqli_query($conn, "SELECT * FROM grafikpemasukan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
-// $cek_db_perbandingan = mysqli_query($conn, "SELECT * FROM grafikperbandingan WHERE tahun = '" . $get_year . "' AND bulan = '" . $month_str . "' ");
-// $ada_db_pemasukkan = mysqli_num_rows($cek_db_pemasukkan);
-// $ada_db_perbandingan = mysqli_num_rows($cek_db_perbandingan);
-// $id_db = $year_str . $month_str;
-// $id_db_new = intval($id_db);
 ?>
 
 <!DOCTYPE html>
@@ -56,13 +49,27 @@ if ($_SESSION['status_login'] != true) {
             /* 21px */
             text-decoration-line: underline;
         }
+
+        #pagination {
+            display: flex;
+            justify-content: flex-end;
+        }
     </style>
 </head>
 
 <body>
+    <?php
+    $per_page_record = 5; // Jumlah Item Display pada page        
+    if (isset($_GET["page"])) {
+        $page  = $_GET["page"];
+    } else {
+        $page = 1;
+    }
+    $start_from = ($page - 1) * $per_page_record;
+    ?>
     <!--------------------------------------------ADMIN-------------------------------------------------------->
     <?php
-    if ($_SESSION['role_login'] == 'admin') {
+    if ($_SESSION['role_login'] != 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -176,7 +183,7 @@ if ($_SESSION['status_login'] != true) {
         </aside>
         <!--------------------------------------------MASTERADMIN-------------------------------------------------------->
     <?php
-    } else if ($_SESSION['role_login'] == 'masteradmin') {
+    } else if ($_SESSION['role_login'] == 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -553,7 +560,7 @@ if ($_SESSION['status_login'] != true) {
                         </thead>
                         <tbody>
                             <?php
-                            $query_data = mysqli_query($conn, "SELECT * FROM pemasukkan ORDER BY tanggal DESC LIMIT 10");
+                            $query_data = mysqli_query($conn, "SELECT * FROM pemasukkan ORDER BY tanggal DESC LIMIT $start_from, $per_page_record");
                             if (mysqli_num_rows($query_data) > 0) {
                                 while ($fetch_data = mysqli_fetch_array($query_data)) {
                             ?>
@@ -579,7 +586,55 @@ if ($_SESSION['status_login'] != true) {
                         </tbody>
                     </table>
                 </div>
+                <br>
+                <div id="pagination">
 
+                    <div class="pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="inline-flex -space-x-px text-sm">
+
+                                <?php
+                                $query = "SELECT COUNT(*) FROM pemasukkan";
+                                $rs_result = mysqli_query($conn, $query);
+                                $row = mysqli_fetch_row($rs_result);
+                                $total_records = $row[0];
+
+                                echo "</br>";
+                                $total_pages = ceil($total_records / $per_page_record);
+                                $pagLink = "";
+
+                                if ($page >= 2) {
+                                    echo "<li><a class='flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' href='pemasukkan.php?page=" . ($page - 1) . "'>  Prev </a></li>";
+                                }
+
+                                for ($i = 1; $i <= $total_pages; $i++) {
+                                    if ($i == $page) {
+                                        $pagLink .= "<li><a aria-current='page' class='flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' href='pemasukkan.php?page="
+                                            . $i . "'>" . $i . " </a></li>";
+                                    } else {
+                                        $pagLink .= "<li><a class='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' href='pemasukkan.php?page=" . $i . "'>   
+                                        " . $i . " </a></li>";
+                                    }
+                                };
+                                echo $pagLink;
+
+                                if ($page < $total_pages) {
+                                    echo "<li><a class='flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' href='pemasukkan.php?page=" . ($page + 1) . "'>  Next </a></li>";
+                                }
+                                ?>
+                            </ul>
+                        </nav>
+                    </div>
+
+
+                    <script>
+                        function go2Page() {
+                            var page = document.getElementById("page").value;
+                            page = ((page > <?php echo $total_pages; ?>) ? <?php echo $total_pages; ?> : ((page < 1) ? 1 : page));
+                            window.location.href = 'pemasukkan.php?page=' + page;
+                        }
+                    </script>
+                </div>
             </div>
             <br><br>
         </div>

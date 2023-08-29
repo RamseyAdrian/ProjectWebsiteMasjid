@@ -47,7 +47,7 @@ if ($_SESSION['status_login'] != true) {
 <body>
     <!--------------------------------------------ADMIN-------------------------------------------------------->
     <?php
-    if ($_SESSION['role_login'] == 'admin') {
+    if ($_SESSION['role_login'] != 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -161,7 +161,7 @@ if ($_SESSION['status_login'] != true) {
         </aside>
         <!--------------------------------------------MASTERADMIN-------------------------------------------------------->
     <?php
-    } else if ($_SESSION['role_login'] == 'masteradmin') {
+    } else if ($_SESSION['role_login'] == 'admin') {
     ?>
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -341,7 +341,7 @@ if ($_SESSION['status_login'] != true) {
                                          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
                                          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Posisi Kepengurusan" required>
                                 </div>
-                                <!-- <div>
+                                <div>
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kondisi</label>
                                     <select name="item_condition" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option selected>Pilih Kondisi Aset</option>
@@ -349,7 +349,7 @@ if ($_SESSION['status_login'] != true) {
                                         <option value="Rusak">Rusak</option>
                                         <option value="Sedang diperbaiki">Sedang diperbaiki</option>
                                     </select>
-                                </div> -->
+                                </div>
                                 <input type="submit" name="submit" value="Simpan" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             </form>
                             <?php
