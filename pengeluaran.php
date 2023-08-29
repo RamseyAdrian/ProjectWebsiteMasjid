@@ -5,6 +5,10 @@ include 'db.php';
 if ($_SESSION['status_login'] != true) {
     echo '<script>window.location="login.php"</script>';
 }
+if ($_SESSION['role_login'] == 'Sekretaris') {
+    echo '<script>window.location="logout.php"</script>';
+}
+
 
 $_get_year = date("Y");
 $get_month = date("m");

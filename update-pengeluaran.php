@@ -5,6 +5,10 @@ include 'db.php';
 if ($_SESSION['status_login'] != true) {
     echo '<script>window.location="login.php"</script>';
 }
+if ($_SESSION['role_login'] == 'Sekretaris') {
+    echo '<script>window.location="logout.php"</script>';
+}
+
 
 $query_data = mysqli_query($conn, "SELECT * FROM pengeluaran WHERE id = '" . $_GET['id'] . "' ");
 if (mysqli_num_rows($query_data) == 0) {
